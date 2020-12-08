@@ -36,4 +36,10 @@ public class joinMeService {
         }
         return null;
     }
+
+    public Activity addActivity (Activity activity){
+    // to do update activity
+
+        return activity;
+    }
 }
