@@ -9,7 +9,7 @@ public interface JoinMeRepository extends CrudRepository<Activity, Integer>, Pag
 
     //List<Activity> findAllByOrderByCategory();
 
-    List<Activity> findAllByOrderByDateDesc();
+   // List<Activity> findAllByOrderByDateDesc();
 
     List<Activity> findByCategoryId(int categoryID);
 

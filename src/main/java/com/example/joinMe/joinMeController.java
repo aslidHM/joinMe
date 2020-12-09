@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class JoinMeController {
 
     @Autowired
-    private JoinMeService joinMeservice;
+    private JoinMeService joinMeService;
 
     @GetMapping("/")
     public String getAllActivities (Model model) {
@@ -30,19 +30,19 @@ public class JoinMeController {
     @PostMapping("/activities/{categoryID}")
     public String getActivitiesByCategory (@PathVariable int categoryID, Model model) {
         //get activities by category
-        model.addAttribute("activities", joinMeservice.getActivities(categoryID));
+       //model.addAttribute("activities", joinMeService.getActivities(categoryID));
         return "activities";
     }
-    @GetMapping("/addActivity")
-    public String addActivity (@ModelAttribute Activity activity) {
-        //save new activity
-         joinMeservice.createActivity(activity);
-         return "addActivity";
-    }
-    @GetMapping("/editActivity")
-    public String editActivity (@ModelAttribute Activity activity) {
-        //save new activity
-        joinMeservice.createActivity(activity);
-        return "editActivity";
-    }
+//    @GetMapping("/addActivity")
+//    public String addActivity (@ModelAttribute Activity activity) {
+//        //save new activity
+//       //  joinMeService.createActivity(activity);
+//         return "addActivity";
+//    }
+//    @GetMapping("/editActivity")
+//    public String editActivity (@ModelAttribute Activity activity) {
+//        //save new activity
+//      //  joinMeService.createActivity(activity);
+//        return "editActivity";
+//    }
 }

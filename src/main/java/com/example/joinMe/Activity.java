@@ -1,9 +1,15 @@
 package com.example.joinMe;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Activity {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String activityName;
     private String ownerId;
@@ -11,7 +17,15 @@ public class Activity {
     private Date startDate;
     private Date startTime;
     private String location;
+    private int categoryId;
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public int getID() {
         return id;
