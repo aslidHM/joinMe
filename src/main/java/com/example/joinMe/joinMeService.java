@@ -1,45 +1,39 @@
 package com.example.joinMe;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class joinMeService {
-
+    @Autowired
+    JoinMeRepository joinMeRepository;
 
     private List<Activity> activities;
 
-    // edit an activity
-    public Activity editActivity(Activity activity) {
-        Activity activityToEdit = this.getActivity(activity.getID());
+    public List<Activity> getActivities(int categoryID) {
+        //get all activities for a specific category
+        return joinMeRepository.findByCategoryId(categoryID);
+    }
 
-        return activity;
+    // update one activity
+    public Activity updateCreateActivity(Activity activity) {
+        return joinMeRepository.save(activity);
     }
 
     // delete an activity
-    public void deleteBook(int id) {
-        Activity activityToDelete = this.getActivity(id);
-      // if (bookToDelete != null) {
-            activities.remove(activityToDelete);
-       // }
-    }
-
-
-    // get one Activity
-    public Activity getActivity(int id) {
-        for (Activity activity : activities) {
-            if (activity.getID()==id) {
-                return activity;
-            }
+    public void deleteActivity(int activityId) {
+        Activity activityToDelete = this.getActivity(activityId);
+        if (activityToDelete != null) {
+            joinMeRepository.delete(activityToDelete);
         }
-        return null;
+    }
+    
+    // get one Activity
+    public Activity getActivity(int activityID) {
+
+        return joinMeRepository.findById(activityID).get();
     }
 
-    public Activity addActivity (Activity activity){
-    // to do update activity
-
-        return activity;
-    }
 }
