@@ -2,21 +2,20 @@ package com.example.joinMe;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 
-public class joinMeController {
+public class JoinMeController {
 
     @Autowired
-    private joinMeService joinMeservice;
+    private JoinMeService joinMeservice;
 
     @GetMapping("/")
     public String getAllActivities (Model model) {
@@ -30,20 +29,20 @@ public class joinMeController {
 
     @PostMapping("/activities/{categoryID}")
     public String getActivitiesByCategory (@PathVariable int categoryID, Model model) {
-
-        List<Activity> member = new ArrayList<>();
-        // todo get all customersmodel.addAttribute("customers", customers);
-
+        //get activities by category
+        model.addAttribute("activities", joinMeservice.getActivities(categoryID));
         return "activities";
     }
-    @GetMapping("/activities")
-    public String addActivities (Model model) {
-
-        List<Activity> member = new ArrayList<>();
-
-        Activity newActivity = new Activity();
-        // todo get all customersmodel.addAttribute("customers", customers);
-        joinMeservice.addActivity(newActivity);
-        return "addActivity";
+    @GetMapping("/addActivity")
+    public String addActivity (@ModelAttribute Activity activity) {
+        //save new activity
+         joinMeservice.createActivity(activity);
+         return "addActivity";
+    }
+    @GetMapping("/editActivity")
+    public String editActivity (@ModelAttribute Activity activity) {
+        //save new activity
+        joinMeservice.createActivity(activity);
+        return "editActivity";
     }
 }

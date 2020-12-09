@@ -1,12 +1,13 @@
 package com.example.joinMe;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+@Service
+public class JoinMeService {
 
-public class joinMeService {
     @Autowired
     JoinMeRepository joinMeRepository;
 
@@ -18,7 +19,7 @@ public class joinMeService {
     }
 
     // update one activity
-    public Activity updateCreateActivity(Activity activity) {
+    public Activity createActivity(Activity activity) {
         return joinMeRepository.save(activity);
     }
 
@@ -29,7 +30,7 @@ public class joinMeService {
             joinMeRepository.delete(activityToDelete);
         }
     }
-    
+
     // get one Activity
     public Activity getActivity(int activityID) {
 
