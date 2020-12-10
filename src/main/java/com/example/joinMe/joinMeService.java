@@ -13,11 +13,20 @@ public class JoinMeService {
 
     private List<Activity> activities;
 
-    public List<Activity> getActivities(int categoryID) {
+    public List<Activity> getActivitiesByCategory(int categoryID) {
         //get all activities for a specific category
-        return joinMeRepository.findByCategoryId(categoryID);
+        return joinMeRepository.findByCategoryID(categoryID);
     }
 
+    public List<Activity> getActivities() {
+        //get all activities for a specific category
+        return joinMeRepository.findAllFromDate();
+    }
+
+    public List<Activity> getActivitiesByMember(int memberID) {
+        //get all activities for a specific category
+        return joinMeRepository.findAllByMember(memberID);
+    }
     // update one activity
     public Activity createActivity(Activity activity) {
         return joinMeRepository.save(activity);

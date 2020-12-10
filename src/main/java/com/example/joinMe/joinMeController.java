@@ -17,14 +17,17 @@ public class JoinMeController {
     @Autowired
     private JoinMeService joinMeService;
 
-    @GetMapping("/")
-    public String getAllActivities (Model model) {
-        return "index";
-    }
 
     @GetMapping("/login")
     public String login (Model model) {
         return "login";
+    }
+
+    @GetMapping("/activities")
+    public String getAllActivities (Model model) {
+        //get activities by category
+        model.addAttribute("activities", joinMeService.getActivities());
+        return "activities";
     }
 
     @PostMapping("/activities/{categoryID}")
@@ -33,16 +36,31 @@ public class JoinMeController {
        //model.addAttribute("activities", joinMeService.getActivities(categoryID));
         return "activities";
     }
-//    @GetMapping("/addActivity")
-//    public String addActivity (@ModelAttribute Activity activity) {
-//        //save new activity
-//       //  joinMeService.createActivity(activity);
-//         return "addActivity";
-//    }
-//    @GetMapping("/editActivity")
-//    public String editActivity (@ModelAttribute Activity activity) {
-//        //save new activity
-//      //  joinMeService.createActivity(activity);
-//        return "editActivity";
-//    }
+
+    @PostMapping("/activities/{memberID}")
+    public String getActivitiesMember (@PathVariable int memberID, Model model) {
+        //get activities by category
+        model.addAttribute("activities", joinMeService.getActivitiesByMember(memberID));
+        return "activities";
+    }
+
+  @GetMapping("/addActivity")
+   public String addActivity (@ModelAttribute Activity activity) {
+        //save new activity
+         joinMeService.createActivity(activity);
+         return "addActivity";
+   }
+    @GetMapping("/editActivity")
+    public String editActivity (@ModelAttribute Activity activity) {
+        //save new activity
+      //  joinMeService.createActivity(activity);
+        return "activity";
+    }
+
+    @GetMapping("/deleteActivity")
+    public void deleteActivity (@ModelAttribute Activity activity) {
+        //delete activity
+        int activityID = activity.getID();
+        joinMeService.deleteActivity(activityID);
+    }
 }
