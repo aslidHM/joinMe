@@ -12,7 +12,7 @@ public class Activity {
 
     private int id;
     private String activityName;
-    private int memberId;
+    private String email;
     private int maxMembers;
     private Date startDate;
     private Date startTime;
@@ -20,7 +20,7 @@ public class Activity {
     private int categoryId;
     private int isOwner;
 
-    public Activity(int activityid, String activityName, int memberId, int maxMembers, java.sql.Date activityDate, Time activityTime, String location, int categoryId) {
+    public Activity(int activityid, String activityName, String email, int maxMembers, java.sql.Date activityDate, Time activityTime, String location, int categoryId) {
     }
 
     public int getCategoryId() {
@@ -47,12 +47,12 @@ public class Activity {
         this.activityName = activityName;
     }
 
-    public int getMemberId() {
-        return memberId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMemberId(int ownerId) {
-        this.memberId = memberId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getMaxMembers() {

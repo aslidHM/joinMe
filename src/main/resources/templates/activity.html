@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,11 +29,12 @@
             <h3>Activities</h3>
             <hr class="main-hr">
         </div>
-        <div class="content">
-            <div class="activity">
-                <span>Title: <span >test</span></span>
-                <span>Category: <span >test</span></span>
-                <span>Date: <span >test</span></span>
+        <div class="content" th:each="activity : ${activities}">
+            <div class="activity" >
+                <span>Title: <span th:text="${activity.ActivityName}"></span></span>
+                <span>Category: <span th:text="${activity.ActivityName}"></span></span>
+                <span>Date: <span th:text="${activity.ActivityDate}"></span></span>
+                <span>Time: <span th:text="${activity.ActivityTime}"></span></span>
 
             </div>
         </div>

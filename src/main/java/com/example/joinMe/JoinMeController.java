@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 
 public class JoinMeController {
@@ -30,34 +32,35 @@ public class JoinMeController {
     @GetMapping("/activities")
     public String getAllActivities (Model model) {
         //get activities by category
-        model.addAttribute("activities", repository.getActivities());
-        return "activities";
+        List<Activity> activ = repository.getActivities();
+        model.addAttribute("activities", activ);
+        return "activity";
     }
 
     @PostMapping("/activities/{categoryID}")
     public String getActivitiesByCategory (@PathVariable int categoryID, Model model) {
         //get activities by category
-       model.addAttribute("activities", repository.getActivityByCategory(categoryID));
+        model.addAttribute("activities", repository.getActivityByCategory(categoryID));
         return "activities";
     }
 
     @PostMapping("/activities/{memberID}")
     public String getActivitiesMember (@PathVariable int memberID, Model model) {
         //get activities by category
-       // model.addAttribute("activities", repository.getActivitiesByMember(memberID));
+        // model.addAttribute("activities", repository.getActivitiesByMember(memberID));
         return "activities";
     }
 
-  @GetMapping("/addActivity")
-   public String addActivity (@ModelAttribute Activity activity) {
+    @GetMapping("/addActivity")
+    public String addActivity (@ModelAttribute Activity activity) {
         //save new activity
-         //repository.createActivity(activity);
-         return "addActivity";
-   }
+        //repository.createActivity(activity);
+        return "addActivity";
+    }
     @GetMapping("/editActivity")
     public String editActivity (@ModelAttribute Activity activity) {
         //save new activity
-      //  repository.createActivity(activity);
+        //  repository.createActivity(activity);
         return "activity";
     }
 
@@ -65,6 +68,6 @@ public class JoinMeController {
     public void deleteActivity (@ModelAttribute Activity activity) {
         //delete activity
         int activityID = activity.getID();
-      //  repository.deleteActivity(activityID);
+        //  repository.deleteActivity(activityID);
     }
 }

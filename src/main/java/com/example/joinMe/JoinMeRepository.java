@@ -22,9 +22,8 @@ public class JoinMeRepository {
         List<Activity> activities = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("Select * FROM ACTIVITY WHERE ActivityDate > ?");) {
+             PreparedStatement ps = conn.prepareStatement("Select A.*, M.EMAIL, MA.ISOWNER FROM ACTIVITY  A join MEMBERACTIVITY MA ON A.ACTIVITYID = MA.ACTIVITYID join MEMBER M ON M.MEMBERID = MA.MEMBERID WHERE A.ACTIVITYDATE >= CURRENT_DATE();");) {
 
-            ps.setDate(1, (java.sql.Date) new Date());
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -67,7 +66,7 @@ public class JoinMeRepository {
         Date currDate = new Date();
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("Select a.*, m.IsOwner FROM Activity a Join MemberActivity m On a.MemberId = m.MemberId WHERE a.ActivityDate > ? AND a.memberId = ?)");) {
+             PreparedStatement ps = conn.prepareStatement("Select a.*, ma.IsOwner FROM Activity a Join MemberActivity ma On a.ActivityId= ma.ActivityId join Member m on m.MemberId = ma.MemberId WHERE a.ActivityDate > ? AND ma.memberId = ?");) {
             //Select a.* FROM Activity a Join MemberActivity m On a.MemberId = m.MemberId Where a.MemberId = 1
 
             ps.setDate(1, (java.sql.Date) currDate);
@@ -87,7 +86,7 @@ public class JoinMeRepository {
     }
 
     public String addActivity(Activity activity) {
-
+        int generatedActivityId =0;
         try (Connection conn = dataSource.getConnection();
 
             PreparedStatement ps = conn.prepareStatement("INSERT INTO Activity VALUES (null, ?, ?, ?, ?)");) {
@@ -99,7 +98,10 @@ public class JoinMeRepository {
             ps.setString(6, activity.getLocation());
             ps.setInt(7, activity.getCategoryId());
             ps.executeUpdate();
-
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                 generatedActivityId = rs.getInt(1);
+            }
 
 
         }
@@ -109,10 +111,10 @@ public class JoinMeRepository {
 
         try (Connection conn1 = dataSource.getConnection();
 
-             PreparedStatement ps1 = conn1.prepareStatement("INSERT INTO MemberActivity VALUES (null, ?, ?, ?, ?)");) {
+             PreparedStatement ps1 = conn1.prepareStatement("INSERT INTO MemberActivity VALUES (null, ?, ?, ?)");) {
 
-            ps1.setInt(1, activity.getID());
-            ps1.setInt(2, activity.getMemberId());
+            ps1.setInt(1, generatedActivityId);
+            ps1.setString(2, activity.getEmail());
             ps1.setInt(3, activity.getIsOwner());
             ps1.executeUpdate();
 
@@ -144,7 +146,7 @@ public class JoinMeRepository {
     private Activity rsActivity(ResultSet rs) throws SQLException {
         return new Activity(rs.getInt("Activityid"),
                 rs.getString("ActivityName"),
-                rs.getInt("memberId"),
+                rs.getString("email"),
                 rs.getInt("MaxMembers"),
                 rs.getDate("ActivityDate"),
                 rs.getTime("ActivityTime"),
