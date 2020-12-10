@@ -1,0 +1,237 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+*{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
+.body{
+        font-family: 'Quicksand', sans-serif;
+}
+.custom-shape-divider-bottom-1607516233 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1607516233 svg {
+    position: relative;
+    display: block;
+    width: calc(210% + 1.3px);
+    height: 115px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1607516233 .shape-fill {
+    fill: red;
+}
+.hero{
+        height: 100vh;
+        background-color: #ffffff;
+        position: relative;
+}
+.nav-bar{
+        display: flex;
+        padding-top: 30px;
+        padding-right: 120px;
+        padding-left: 120px;
+}
+.nav-logo {
+        margin-top: 0;
+        padding-top: 0;
+}
+.nav-logo img{
+        width: 60px;
+        height: 50px;
+        padding-top: 0;
+        margin-top: -10px;
+}
+.nav-links{
+        flex: 1;
+}
+.nav-links ul{
+        margin-left: 50px;
+        display: inline;
+}
+.nav-links ul li{
+        list-style: none;
+        display: inline-block;
+        padding: 8px 25px;
+}
+.nav-links ul a{
+color: red;
+text-decoration: none;
+font-size: 16px;
+font-weight: bold;
+font-family: 'Quicksand', sans-serif;
+}
+.nav-links ul li::after{
+        content: '';
+        width: 0;
+        height: 2px;
+        background: red;
+        display: block;
+        margin: auto;
+        transition: .5s;
+}
+.nav-links ul li:hover::after{
+        width: 100%;
+}
+.btn-sign-in{
+        padding: 10px 20px;
+        border: 0;
+        background: red;
+        font-weight: bold;
+        cursor: pointer;
+        color: #ffffff;
+        border-radius: 8px;
+}
+.nav-links .btn-sign-in{
+        float: right;
+}
+.main{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 60px 1fr 1fr auto;
+        font-family: 'Quicksand', sans-serif;
+        color: #000000;
+        margin-left: 8%;
+        margin-top: 5%;
+}
+.sub-menu{
+        grid-column: 1/6;
+        grid-row: 1/2;
+}
+h3{
+        padding-bottom: 10px;
+}
+.main-hr{
+        border: none;
+        width:  80%;
+        height: 4px;
+        background: linear-gradient(to right, #ff0000 0%, #ffffff 100%);
+}
+
+.activity{
+
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: 200px;
+        padding-top: 5px;
+        border: 4px solid #ff0000;
+        border-radius: 15px;
+        background: #ffffff;
+}
+.header{
+        display: flex;
+        flex-direction: row;
+}
+
+.main-text{
+        display: grid;
+        grid-template-columns: 55% auto;
+        grid-template-rows: 1fr auto;
+        font-family: 'Quicksand', sans-serif;
+        color: #000000;
+        margin-left: 5%;
+}
+.sp{
+        font-size: 50px;
+        color: red;
+}
+.text{
+        grid-column: 1/2;
+}
+.bgimg{
+        grid-column: 2/3;
+}
+.main-text h1{
+        font-size: 50px;
+        margin-bottom: 30px;
+        margin-top: 20%;
+
+}
+.bg{
+        width: 600px;
+        height: 550px;
+
+}
+.nav-bar .fa{
+        display: none;
+}
+.nav-bar .fas{
+        display: none;
+}
+
+@media (max-width: 700px){
+        .main-text{
+                margin: 50px 40px;
+        }
+        .main-text h1{
+                font-size: 30px;
+        }
+        .text{
+        grid-column: 1/3;
+}
+        .bgimg{
+        display: none;
+}
+        .nav-bar{
+                padding: 10px 30px;
+        }
+        .fa-bars{
+                position: absolute;
+                right: 20px;
+                top: 10px;
+        }
+        .nav-bar .fa{
+                display: block;
+                color: #ff0000;
+                margin: 10px 25px;
+                font-size: 22px;
+                cursor: pointer;
+        }
+        .nav-bar .fas{
+                display: block;
+                color: #ffffff;
+                margin: 10px 25px;
+                font-size: 22px;
+                cursor: pointer;
+        }
+        .nav-links{
+                height: 100vh;
+                width: 200px;
+                background: red;
+                top: 0;
+                right: -200px;
+                overflow: hidden;
+                position: absolute;
+                text-align: left;
+                z-index: 2;
+                transition: .5s;
+        }
+        .nav-links ul a{
+                display: block;
+                color: #ffffff;
+        }
+        .nav-links .btn-sign-in{
+                float: none;
+                margin-left: 25px;
+                margin-top: 10px;
+                background-color: #ffffff;
+                color: red;
+        }
+        .nav-logo img{
+        width: 40px;
+        height: 35px;
+        padding-top: 0;
+        margin-top: 0;
+}
+}
