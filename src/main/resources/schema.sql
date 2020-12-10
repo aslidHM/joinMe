@@ -13,12 +13,11 @@ CREATE TABLE Category(
 CREATE TABLE MemberActivity(
   MemberId BIGINT,
   ActivityId BIGINT,
-  IsOwner BIT
+  IsOwner BIT NOT NULL
 );
 CREATE TABLE Activity(
   ActivityId BIGINT AUTO_INCREMENT PRIMARY KEY,
   ActivityName VARCHAR(64) NOT NULL,
-  memberId BIGINT,
   MaxMembers BIGINT,
   ActivityTime TIME NOT NULL,
   ActivityDate DATE NOT NULL,
@@ -29,6 +28,5 @@ CREATE TABLE Activity(
 
 ALTER TABLE MemberActivity ADD FOREIGN KEY (MemberId) REFERENCES Member(MemberId);
 ALTER TABLE MemberActivity ADD FOREIGN KEY (ActivityId) REFERENCES Activity(ActivityId);
-ALTER TABLE Activity ADD FOREIGN KEY (MemberId) REFERENCES Member(MemberId);
 ALTER TABLE Activity ADD FOREIGN KEY (CategoryId) REFERENCES Category(CategoryId);
 

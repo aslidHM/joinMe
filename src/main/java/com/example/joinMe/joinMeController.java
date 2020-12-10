@@ -15,45 +15,49 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class JoinMeController {
 
     @Autowired
-    private JoinMeService joinMeService;
+    private JoinMeRepository repository;
 
 
     @GetMapping("/login")
     public String login (Model model) {
         return "login";
     }
+    @GetMapping("/")
+    public String initialize () {
+        return "index";
+    }
 
     @GetMapping("/activities")
     public String getAllActivities (Model model) {
         //get activities by category
-        model.addAttribute("activities", joinMeService.getActivities());
+        model.addAttribute("activities", repository.getActivities());
         return "activities";
     }
 
     @PostMapping("/activities/{categoryID}")
     public String getActivitiesByCategory (@PathVariable int categoryID, Model model) {
         //get activities by category
-       //model.addAttribute("activities", joinMeService.getActivities(categoryID));
+       model.addAttribute("activities", repository.getActivityByCategory(categoryID));
         return "activities";
     }
 
     @PostMapping("/activities/{memberID}")
     public String getActivitiesMember (@PathVariable int memberID, Model model) {
         //get activities by category
-        model.addAttribute("activities", joinMeService.getActivitiesByMember(memberID));
+       // model.addAttribute("activities", repository.getActivitiesByMember(memberID));
         return "activities";
     }
 
   @GetMapping("/addActivity")
    public String addActivity (@ModelAttribute Activity activity) {
         //save new activity
-         joinMeService.createActivity(activity);
+         //repository.createActivity(activity);
          return "addActivity";
    }
     @GetMapping("/editActivity")
     public String editActivity (@ModelAttribute Activity activity) {
         //save new activity
-      //  joinMeService.createActivity(activity);
+      //  repository.createActivity(activity);
         return "activity";
     }
 
@@ -61,6 +65,6 @@ public class JoinMeController {
     public void deleteActivity (@ModelAttribute Activity activity) {
         //delete activity
         int activityID = activity.getID();
-        joinMeService.deleteActivity(activityID);
+      //  repository.deleteActivity(activityID);
     }
 }

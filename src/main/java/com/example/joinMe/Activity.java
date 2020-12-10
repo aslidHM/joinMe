@@ -4,20 +4,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Time;
 import java.util.Date;
 
-@Entity
+
 public class Activity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
     private String activityName;
-    private String ownerId;
+    private int memberId;
     private int maxMembers;
     private Date startDate;
     private Date startTime;
     private String location;
     private int categoryId;
+    private int isOwner;
+
+    public Activity(int activityid, String activityName, int memberId, int maxMembers, java.sql.Date activityDate, Time activityTime, String location, int categoryId) {
+    }
 
     public int getCategoryId() {
         return categoryId;
@@ -43,12 +47,12 @@ public class Activity {
         this.activityName = activityName;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public int getMemberId() {
+        return memberId;
     }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+    public void setMemberId(int ownerId) {
+        this.memberId = memberId;
     }
 
     public int getMaxMembers() {
@@ -83,6 +87,13 @@ public class Activity {
         this.location = location;
     }
 
+    public int getIsOwner() {
+        return isOwner;
+    }
+
+    public void setIsOwner(int isOwner) {
+        this.isOwner = isOwner;
+    }
 }
 
 
