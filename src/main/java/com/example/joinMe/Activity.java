@@ -20,9 +20,9 @@ public class Activity {
     private int categoryId;
     private int isOwner;
 
-    public Activity(int activityid, String activityName, String email, int maxMembers, Date activityDate, Time activityTime, String location, int categoryId, int isOwner) {
+    public Activity(int activityId, String activityName, String email, int maxMembers, Date activityDate, Time activityTime, String location, int categoryId, int isOwner) {
 
-        this.id = activityid;
+        this.id = activityId;
         this.activityName = activityName;
         this.email = email;
         this.maxMembers = maxMembers;
