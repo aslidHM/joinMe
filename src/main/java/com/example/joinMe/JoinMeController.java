@@ -32,8 +32,8 @@ public class JoinMeController {
     @GetMapping("/activities")
     public String getAllActivities (Model model) {
         //get activities by category
-        List<Activity> activ = repository.getActivities();
-        model.addAttribute("activities", activ);
+        List<Activity> activities = repository.getActivities();
+        model.addAttribute("activities", activities);
         return "activity";
     }
 

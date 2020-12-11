@@ -93,8 +93,8 @@ public class JoinMeRepository {
 
             ps.setString(1, activity.getActivityName());
             ps.setInt(3, activity.getMaxMembers());
-            ps.setDate(4, (java.sql.Date) activity.getStartDate());
-            ps.setTime(5, (Time) activity.getStartTime());
+            ps.setDate(4, (java.sql.Date) activity.getActivityDate());
+            ps.setTime(5, (Time) activity.getActivityTime());
             ps.setString(6, activity.getLocation());
             ps.setInt(7, activity.getCategoryId());
             ps.executeUpdate();
@@ -144,14 +144,15 @@ public class JoinMeRepository {
 
     // Helper method to create a Activity object instantiated with data from the ResultSet
     private Activity rsActivity(ResultSet rs) throws SQLException {
-        return new Activity(rs.getInt("Activityid"),
+        return new Activity(rs.getInt("ActivityId"),
                 rs.getString("ActivityName"),
-                rs.getString("email"),
+                rs.getString("Email"),
                 rs.getInt("MaxMembers"),
                 rs.getDate("ActivityDate"),
                 rs.getTime("ActivityTime"),
                 rs.getString("Location"),
-                rs.getInt("CategoryId"));
+                rs.getInt("CategoryId"),
+                rs.getInt("isOwner"));
 
 
     }

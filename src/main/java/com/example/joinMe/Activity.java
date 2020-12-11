@@ -14,13 +14,23 @@ public class Activity {
     private String activityName;
     private String email;
     private int maxMembers;
-    private Date startDate;
-    private Date startTime;
+    private Date activityDate;
+    private Date activityTime;
     private String location;
     private int categoryId;
     private int isOwner;
 
-    public Activity(int activityid, String activityName, String email, int maxMembers, java.sql.Date activityDate, Time activityTime, String location, int categoryId) {
+    public Activity(int activityid, String activityName, String email, int maxMembers, Date activityDate, Time activityTime, String location, int categoryId, int isOwner) {
+
+        this.id = activityid;
+        this.activityName = activityName;
+        this.email = email;
+        this.maxMembers = maxMembers;
+        this.activityDate = activityDate;
+        this.activityTime = activityTime;
+        this.location = location;
+        this.categoryId = categoryId;
+        this.isOwner = isOwner;
     }
 
     public int getCategoryId() {
@@ -63,20 +73,20 @@ public class Activity {
         this.maxMembers = maxMembers;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getActivityDate() {
+        return activityDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setActivityDate(Date activityDate) {
+        this.activityDate= activityDate;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public Date getActivityTime() {
+        return activityTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setActivityTime(Date activityTime) {
+        this.activityTime = activityTime;
     }
 
     public String getLocation() {
