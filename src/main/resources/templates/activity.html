@@ -33,9 +33,8 @@
             <div class="activity" >
                 <span>Title: <span th:text="${activity.ActivityName}"></span></span>
                 <span>Category: <span th:text="${activity.ActivityName}"></span></span>
-                <span>Date: <span th:text="${activity.ActivityDate}"></span></span>
-                <span>Time: <span th:text="${activity.ActivityTime}"></span></span>
-
+                <span>Date: <span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span></span>
+                <span>Time: <span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span></span>
             </div>
         </div>
     </div>

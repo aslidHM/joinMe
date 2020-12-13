@@ -19,8 +19,7 @@ CREATE TABLE Activity(
   ActivityId BIGINT AUTO_INCREMENT PRIMARY KEY,
   ActivityName VARCHAR(64) NOT NULL,
   MaxMembers BIGINT,
-  ActivityTime TIME NOT NULL,
-  ActivityDate DATE NOT NULL,
+  ActivityDate TIMESTAMP NOT NULL,
   Location VARCHAR(64) NOT NULL,
   CategoryId BIGINT NOT NULL
 );

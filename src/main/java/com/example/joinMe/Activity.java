@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Time;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 
@@ -14,20 +15,21 @@ public class Activity {
     private String activityName;
     private String email;
     private int maxMembers;
-    private Date activityDate;
-    private Date activityTime;
+    private ZonedDateTime activityDate;
+    //private Time activityTime;
     private String location;
     private int categoryId;
     private int isOwner;
 
-    public Activity(int activityId, String activityName, String email, int maxMembers, Date activityDate, Time activityTime, String location, int categoryId, int isOwner) {
+
+    public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate,  String location, int categoryId, int isOwner) {
 
         this.id = activityId;
         this.activityName = activityName;
         this.email = email;
         this.maxMembers = maxMembers;
         this.activityDate = activityDate;
-        this.activityTime = activityTime;
+       // this.activityTime = activityTime;
         this.location = location;
         this.categoryId = categoryId;
         this.isOwner = isOwner;
@@ -73,21 +75,22 @@ public class Activity {
         this.maxMembers = maxMembers;
     }
 
-    public Date getActivityDate() {
+    public ZonedDateTime getActivityDate() {
+
         return activityDate;
     }
 
-    public void setActivityDate(Date activityDate) {
+    public void setActivityDate(ZonedDateTime activityDate) {
         this.activityDate= activityDate;
     }
 
-    public Date getActivityTime() {
+   /* public Time getActivityTime() {
         return activityTime;
     }
 
-    public void setActivityTime(Date activityTime) {
+    public void setActivityTime(Time activityTime) {
         this.activityTime = activityTime;
-    }
+    }*/
 
     public String getLocation() {
         return location;
