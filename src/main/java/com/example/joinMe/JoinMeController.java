@@ -78,9 +78,22 @@ public class JoinMeController {
         return "activity";
     }
 
+    @GetMapping("/addMemberToActivity")
+    public String addMemberToActivity (@PathVariable int memberID, @PathVariable int activityId) {
+
+        repository.addMemberToActivity(memberID, activityId);
+        return "activity";
+    }
+
     @GetMapping("/deleteActivity")
     public String deleteActivity (@PathVariable int activityId) {
         repository.deleteActivity(activityId);
+        return "activity";
+    }
+
+    @GetMapping("/deleteMemberFromActivity")
+    public String deleteMemberFromActivity (@PathVariable int activityId, @PathVariable int memberId) {
+        repository.deleteMemberFromActivity(activityId, memberId);
         return "activity";
     }
 }
