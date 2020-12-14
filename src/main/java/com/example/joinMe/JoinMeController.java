@@ -22,11 +22,16 @@ public class JoinMeController {
 
     @GetMapping("/login")
     public String login (Model model) {
-        return "login";
+        return "signIn";
     }
+
     @GetMapping("/")
     public String initialize () {
         return "index";
+    }
+    @GetMapping("/contact")
+    public String contact () {
+        return "contact";
     }
 
     @GetMapping("/activities")

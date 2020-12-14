@@ -16,28 +16,141 @@
         <div class="nav-links" id="nav-links">
             <i class="fas fa-times fa-lg" onclick="closeMenu()"></i>
             <ul>
-                <a href="#"><li>HOME</li></a>
-                <a href="#"><li>ACTIVITIES</li></a>
-                <a href="#"><li>CONTACT</li></a>
+                <a href="/"><li>HOME</li></a>
+                <a href="/activities"><li>ACTIVITIES</li></a>
+                <a href="/contact"><li>CONTACT</li></a>
             </ul>
-            <button type="button" class="btn-sign-in">SIGN IN</button>
+            <a src="/login" class="btn-sign-in">SIGN IN</a>
         </div>
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </div>
     <div class="main">
         <div class="sub-menu">
-            <h3>Activities</h3>
-            <hr class="main-hr">
-        </div>
-        <div class="content" th:each="activity : ${activities}">
-            <div class="activity" >
-                <span>Title: <span th:text="${activity.ActivityName}"></span></span>
-                <span>Category: <span th:text="${activity.ActivityName}"></span></span>
-                <span>Date: <span th:text="${activity.ActivityDate}"></span></span>
-                <span>Time: <span th:text="${activity.ActivityTime}"></span></span>
+            <div class="radio-container">
+                <div class="radio">
+                    <input type="radio" class="radio-input" value="option1" name="myRadio" id="myRadio1" checked>
+                    <label for="myRadio1" class="radio-label" >All Activities</label>
+                    <input type="radio" class="radio-input" value="option2" name="myRadio" id="myRadio2">
+                    <label for="myRadio2" class="radio-label">My Activities</label>
+                </div>
 
+                <input type="button" class="add" value="Add Activity +" onclick="togglePopup2()">
+                <div class="popup2" id="popup-2">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <div class="close-btn" onclick="togglePopup2()"><i class="far fa-window-close"></i></div>
+                        <h2 class="h2">New Activity </h2>
+
+                            <table class="table">
+
+                                <form autocomplete="off">
+                                    <tr>
+                                        <td>
+                                                <span>Activity </span>
+                                        </td>
+                                        <td>
+                                            <input type="text">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                <span >Location </span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="" />
+                                        </td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Max Participants </span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Date</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            <span>Time</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <tr>
+                                        <td >
+                                            <span>Participants</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button class="button">Add Me </button><button class="button">Save </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </table>
+
+                    </div>
+                </div>
             </div>
+
+            <div class="select-container">
+                <div class="select">
+                    <select class="select-box" name="format" id="format">
+                        <option selected disabled>Select Category..</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Exercise">Exercise</option>
+                        <option value="Fika">Fika</option>
+                        <option value="Run">Run</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
+        <div class="div-hr"><hr class="main-hr"></div>
+        <div class="content1">
+
+
+            <div class="card-container">
+                <div th:each="activity : ${activities}">
+                    <div class="card">
+                        <div class="circle">
+                            <img th:src="${activity.categoryId} + '.png'">
+                        </div>
+                        <div class="contentt">
+                            <span th:text="${activity.ActivityName}"></span><br>
+                            <span th:text="${activity.location}"></span><br>
+                            <span th:text="${activity.ActivityDate}"></span><br>
+                            <span th:text="${activity.ActivityTime}"></span><br>
+                            <div class="div-link"><button th:onclick="|togglePopup('${activityStat.count}')|">Details</button></div>
+                        </div>
+
+                    </div>
+                    <div class="popup" th:id="${activityStat.count}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div class="close-btn" th:onclick="|togglePopup('${activityStat.count}')|"><i class="far fa-window-close"></i></div>
+                            <h2 th:text="${activity.ActivityName}">Title</h2>
+                            <p>Category: </p><span th:text="${activity.ActivityName}"></span>
+                            <p>Date: </p><span th:text="${activity.ActivityDate}"></span>
+                            <p>Time: </p><span th:text="${activity.ActivityTime}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     </div>
     <div class="custom-shape-divider-bottom-1607516233">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -46,6 +159,8 @@
             <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
         </svg>
     </div>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
