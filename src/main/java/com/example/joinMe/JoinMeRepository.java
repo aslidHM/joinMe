@@ -113,6 +113,23 @@ public class JoinMeRepository {
 
     }
 
+    public void addMemberToActivity(int activityId, int memberID) {
+
+        try (Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?, ?)");) {
+
+            ps.setInt(1, memberID);
+            ps.setInt(2, activityId);
+            ps.setInt(3, 0);
+            ps.executeUpdate();
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
     public void editActivity(Activity activity) {
 
         try (Connection conn = dataSource.getConnection();
@@ -147,6 +164,21 @@ public class JoinMeRepository {
             ps1.executeUpdate();
 
             conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deleteMemberFromActivity(int activityId, int memberId) {
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM MemberActivity WHERE ActivityId = ? and MemberId = ?");) {
+
+            ps.setInt(1, activityId);
+            ps.setInt(2, memberId);
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
