@@ -16,17 +16,16 @@
         <div class="nav-links" id="nav-links">
             <i class="fas fa-times fa-lg" onclick="closeMenu()"></i>
             <ul>
-                <a href="/"><li>HOME</li></a>
-                <a href="/activities"><li>ACTIVITIES</li></a>
-                <a href="/contact"><li>CONTACT</li></a>
+                <a href="#"><li>HOME</li></a>
+                <a href="#"><li>ACTIVITIES</li></a>
+                <a href="#"><li>CONTACT</li></a>
             </ul>
-            <a src="/login" class="btn-sign-in">SIGN IN</a>
+            <button type="button" class="btn-sign-in">SIGN IN</button>
         </div>
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </div>
     <div class="main">
         <div class="sub-menu">
-<<<<<<< HEAD
             <div class="radio-container">
                 <div class="radio">
                     <input type="radio" class="radio-input" value="option1" name="myRadio" id="myRadio1" checked>
@@ -40,13 +39,14 @@
                     <div class="overlay"></div>
                     <div class="content">
                         <div class="close-btn" onclick="togglePopup2()"><i class="far fa-window-close"></i></div>
-                        <h2 class="h2">New Activity </h2>
+                        <h2 class="h2">New Activity </h1>
 
                             <table class="table">
 
                                 <form autocomplete="off">
                                     <tr>
                                         <td>
+                                            <div>
                                                 <span>Activity </span>
                                         </td>
                                         <td>
@@ -55,6 +55,7 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <div>
                                                 <span >Location </span>
                                         </td>
                                         <td>
@@ -105,17 +106,6 @@
 
                     </div>
                 </div>
-=======
-            <h3>Activities</h3>
-            <hr class="main-hr">
-        </div>
-        <div class="content" th:each="activity : ${activities}">
-            <div class="activity" >
-                <span>Title: <span th:text="${activity.ActivityName}"></span></span>
-                <span>Category: <span th:text="${activity.ActivityName}"></span></span>
-                <span>Date: <span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span></span>
-                <span>Time: <span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span></span>
->>>>>>> 62aa2462b8f93c6910a7738f9f276672fd900b92
             </div>
 
             <div class="select-container">
@@ -144,11 +134,10 @@
                         <div class="contentt">
                             <span th:text="${activity.ActivityName}"></span><br>
                             <span th:text="${activity.location}"></span><br>
-                            <span th:text="${activity.ActivityDate}"></span><br>
-                            <span th:text="${activity.ActivityTime}"></span><br>
+                            <span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span><br>
+                            <span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span><br>
                             <div class="div-link"><button th:onclick="|togglePopup('${activityStat.count}')|">Details</button></div>
                         </div>
-
                     </div>
                     <div class="popup" th:id="${activityStat.count}">
                         <div class="overlay"></div>
@@ -156,13 +145,14 @@
                             <div class="close-btn" th:onclick="|togglePopup('${activityStat.count}')|"><i class="far fa-window-close"></i></div>
                             <h2 th:text="${activity.ActivityName}">Title</h2>
                             <p>Category: </p><span th:text="${activity.ActivityName}"></span>
-                            <p>Date: </p><span th:text="${activity.ActivityDate}"></span>
-                            <p>Time: </p><span th:text="${activity.ActivityTime}"></span>
+                            <p>Date: </p><span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span>
+                            <p>Time: </p><span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span>
                         </div>
                     </div>
                 </div>
             </div>
 
+        </div>
     </div>
     <div class="custom-shape-divider-bottom-1607516233">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -171,8 +161,6 @@
             <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
         </svg>
     </div>
-    </div>
-</div>
     <script src="script.js"></script>
 </body>
 </html>
