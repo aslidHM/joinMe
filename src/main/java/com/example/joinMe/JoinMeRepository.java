@@ -186,6 +186,27 @@ public class JoinMeRepository {
 
     }
 
+    public Member CheckMemberLogin(String email, String password){
+        Member member = null;
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM MEMBER AS M WHERE M.Email=? AND M.Password=?")){
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                member =(rsMember(rs));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        if(member==null){
+            return null;
+        }else{
+            return member;
+        }
+
+    }
+
     // Helper method to create a Activity object instantiated with data from the ResultSet
     private Activity rsActivity(ResultSet rs) throws SQLException {
 
@@ -197,6 +218,16 @@ public class JoinMeRepository {
                 rs.getString("Location"),
                 rs.getInt("CategoryId"),
                 rs.getInt("isOwner"));
+
+
+    }
+
+    private Member rsMember(ResultSet rs) throws SQLException {
+
+        return new Member(rs.getInt("MemberId"),
+                rs.getString("FullName"),
+                rs.getString("Email"),
+                rs.getString("Password"));
 
 
     }

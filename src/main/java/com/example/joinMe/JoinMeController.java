@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.sql.PreparedStatement;
 import java.sql.Time;
 import java.text.ParseException;
@@ -95,5 +93,27 @@ public class JoinMeController {
     public String deleteMemberFromActivity (@PathVariable int activityId, @PathVariable int memberId) {
         repository.deleteMemberFromActivity(activityId, memberId);
         return "activity";
+    }
+
+
+    @PostMapping("/tryLogin")
+    String form(@RequestParam String email, String password, Model model, HttpSession session) {
+        Member member = repository.CheckMemberLogin(email, password);
+        if(member!=null){
+            session.setAttribute("member", member);
+            return "index";
+        }
+        else{
+            model.addAttribute("message", "Wrong email or password, please try again");
+            return "signIn";
+        }
+
+    }
+
+    @GetMapping("/logout")
+    String logout(HttpSession session) {
+        session.removeAttribute("member");
+        session.removeAttribute("newMember");
+        return "signIn";
     }
 }
