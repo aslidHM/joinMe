@@ -1,8 +1,6 @@
 package com.example.joinMe;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -60,17 +58,14 @@ public class JoinMeRepository {
 
     }
 
-
     public List<Activity> getActivityForMember(int memberID) {
         List<Activity> activities = new ArrayList<>();
         Date currDate = new Date();
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("Select a.*, ma.IsOwner FROM Activity a Join MemberActivity ma On a.ActivityId= ma.ActivityId join Member m on m.MemberId = ma.MemberId WHERE a.ActivityDate > ? AND ma.memberId = ?");) {
-            //Select a.* FROM Activity a Join MemberActivity m On a.MemberId = m.MemberId Where a.MemberId = 1
+             PreparedStatement ps = conn.prepareStatement("Select a.*, ma.IsOwner FROM Activity a Join MemberActivity ma On a.ActivityId= ma.ActivityId join Member m on m.MemberId = ma.MemberId WHERE a.ActivityDate >= CURRENT_DATE() AND ma.memberId = ?");) {
 
-            ps.setDate(1, (java.sql.Date) currDate);
-            ps.setInt(2, memberID);
+            ps.setInt(1, memberID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 activities.add(rsActivity(rs));
@@ -85,71 +80,88 @@ public class JoinMeRepository {
 
     }
 
-    public String addActivity(Activity activity) {
-        int generatedActivityId =0;
+    public void addActivity(Activity activity, int memberID) {
+        int generatedActivityId = 0;
+
+        String generatedKeys[] = {"ActivityId"};
+
         try (Connection conn = dataSource.getConnection();
-
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Activity VALUES (null, ?, ?, ?, ?)");) {
-
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO Activity (ActivityName, MaxMembers, ActivityDate, Location , CategoryId) VALUES (?, ?, ?, ?, ?)", generatedKeys);
+             PreparedStatement ps1 = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?, ?)");) {
+            conn.setAutoCommit(false);
             ps.setString(1, activity.getActivityName());
-            ps.setInt(3, activity.getMaxMembers());
-            ps.setDate(4, (java.sql.Date) activity.getActivityDate());
-            ps.setTime(5, (Time) activity.getActivityTime());
-            ps.setString(6, activity.getLocation());
-            ps.setInt(7, activity.getCategoryId());
+            ps.setInt(2, activity.getMaxMembers());
+            ps.setTimestamp(3, DateUtil.toDbFormat(activity.getActivityDate()));
+            ps.setString(4, activity.getLocation());
+            ps.setInt(5, activity.getCategoryId());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                 generatedActivityId = rs.getInt(1);
+                generatedActivityId = rs.getInt("ActivityId");
             }
 
-
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try (Connection conn1 = dataSource.getConnection();
-
-             PreparedStatement ps1 = conn1.prepareStatement("INSERT INTO MemberActivity VALUES (null, ?, ?, ?)");) {
-
-            ps1.setInt(1, generatedActivityId);
-            ps1.setString(2, activity.getEmail());
+            ps1.setInt(1, memberID);
+            ps1.setInt(2, generatedActivityId);
             ps1.setInt(3, activity.getIsOwner());
             ps1.executeUpdate();
 
-        }
-        catch (SQLException e) {
+            conn.commit();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
-        return "AddActivity";
     }
 
-    public String deleteActivity(int activityID) {
+    public void editActivity(Activity activity) {
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("DELETE FROM Activity WHERE ACTIVITYID = ?");) {
-
-            ps.setInt(1, activityID);
+             PreparedStatement ps = conn.prepareStatement("UPDATE Activity SET ActivityName = ?, MaxMembers = ?, " +
+                     " ActivityDate = ?, Location = ?, CategoryId = ? Where ActivityID = ?");) {
+            ps.setString(1, activity.getActivityName());
+            ps.setInt(2, activity.getMaxMembers());
+            ps.setTimestamp(3, DateUtil.toDbFormat(activity.getActivityDate()));
+            ps.setString(4, activity.getLocation());
+            ps.setInt(5, activity.getCategoryId());
+            ps.setInt(6, activity.getID());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return "AddBook";
+    }
+
+    public void deleteActivity(int activityID) {
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM MemberActivity WHERE ActivityId = ?");
+             PreparedStatement ps1 = conn.prepareStatement("DELETE FROM Activity WHERE ActivityId = ?");) {
+
+            conn.setAutoCommit(false);
+
+            ps.setInt(1, activityID);
+            ps.executeUpdate();
+
+            ps1.setInt(1, activityID);
+            ps1.executeUpdate();
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // Helper method to create a Activity object instantiated with data from the ResultSet
     private Activity rsActivity(ResultSet rs) throws SQLException {
+
         return new Activity(rs.getInt("ActivityId"),
                 rs.getString("ActivityName"),
                 rs.getString("Email"),
                 rs.getInt("MaxMembers"),
-                rs.getDate("ActivityDate"),
-                rs.getTime("ActivityTime"),
+                DateUtil.toModelDate(rs.getTimestamp("ActivityDate")),
                 rs.getString("Location"),
                 rs.getInt("CategoryId"),
                 rs.getInt("isOwner"));

@@ -26,6 +26,7 @@
     </div>
     <div class="main">
         <div class="sub-menu">
+<<<<<<< HEAD
             <div class="radio-container">
                 <div class="radio">
                     <input type="radio" class="radio-input" value="option1" name="myRadio" id="myRadio1" checked>
@@ -104,6 +105,17 @@
 
                     </div>
                 </div>
+=======
+            <h3>Activities</h3>
+            <hr class="main-hr">
+        </div>
+        <div class="content" th:each="activity : ${activities}">
+            <div class="activity" >
+                <span>Title: <span th:text="${activity.ActivityName}"></span></span>
+                <span>Category: <span th:text="${activity.ActivityName}"></span></span>
+                <span>Date: <span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span></span>
+                <span>Time: <span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span></span>
+>>>>>>> 62aa2462b8f93c6910a7738f9f276672fd900b92
             </div>
 
             <div class="select-container">

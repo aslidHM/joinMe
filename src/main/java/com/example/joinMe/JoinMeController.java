@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.PreparedStatement;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -18,7 +23,6 @@ public class JoinMeController {
 
     @Autowired
     private JoinMeRepository repository;
-
 
     @GetMapping("/login")
     public String login (Model model) {
@@ -35,8 +39,8 @@ public class JoinMeController {
     }
 
     @GetMapping("/activities")
-    public String getAllActivities (Model model) {
-        //get activities by category
+    public String getAllActivities (Model model) throws ParseException {
+
         List<Activity> activities = repository.getActivities();
         model.addAttribute("activities", activities);
         return "activity";
@@ -57,22 +61,26 @@ public class JoinMeController {
     }
 
     @GetMapping("/addActivity")
-    public String addActivity (@ModelAttribute Activity activity) {
-        //save new activity
-        //repository.createActivity(activity);
-        return "addActivity";
+    public String addActivity (@PathVariable int memberID, @ModelAttribute Activity activity) {
+       // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
+
+        repository.addActivity(activity, memberID);
+        return "activity";
     }
     @GetMapping("/editActivity")
     public String editActivity (@ModelAttribute Activity activity) {
-        //save new activity
-        //  repository.createActivity(activity);
+       /* Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
+        repository.addActivity(a, 2);
+        a.setID(5);
+        a.setActivityName("Åsas editerade aktivitet");*/
+
+        repository.editActivity(activity);
         return "activity";
     }
 
     @GetMapping("/deleteActivity")
-    public void deleteActivity (@ModelAttribute Activity activity) {
-        //delete activity
-        int activityID = activity.getID();
-        //  repository.deleteActivity(activityID);
+    public String deleteActivity (@PathVariable int activityId) {
+        repository.deleteActivity(activityId);
+        return "activity";
     }
 }
