@@ -108,12 +108,14 @@
 
             <div class="select-container">
                 <div class="select">
-                    <select class="select-box" name="format" id="format">
+                    <select id="select-box" name="format" onchange="myCategory();">
                         <option selected disabled>Select Category..</option>
-                        <option value="Lunch">Lunch</option>
-                        <option value="Exercise">Exercise</option>
-                        <option value="Fika">Fika</option>
-                        <option value="Run">Run</option>
+                        <option value="allCategories">Show All</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="exercise">Exercise</option>
+                        <option value="fika">Fika</option>
+                        <option value="run">Run</option>
+                        <option value="meet">Meet</option>
                     </select>
                 </div>
             </div>
@@ -125,7 +127,7 @@
 
             <div class="card-container">
                 <div th:each="activity : ${activities}">
-                    <div class="card" th:classappend="${(activity.isOwner == 0) ? 'false' : ''}">
+                    <div class="card" th:classappend="${((activity.isOwner == 0) ? 'myActivity ' : '') + activity.categoryName}">
                         <div class="circle">
                             <img th:src="${activity.categoryId} + '.png'">
                         </div>

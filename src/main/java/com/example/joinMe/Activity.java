@@ -19,10 +19,11 @@ public class Activity {
     //private Time activityTime;
     private String location;
     private int categoryId;
+    private String categoryName;
     private int isOwner;
 
 
-    public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate,  String location, int categoryId, int isOwner) {
+    public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate,  String location, int categoryId, String categoryName, int isOwner) {
 
         this.id = activityId;
         this.activityName = activityName;
@@ -32,6 +33,7 @@ public class Activity {
        // this.activityTime = activityTime;
         this.location = location;
         this.categoryId = categoryId;
+        this.categoryName = categoryName;
         this.isOwner = isOwner;
     }
 
@@ -41,6 +43,12 @@ public class Activity {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+    public String categoryName() {
+        return categoryName;
     }
 
     public int getID() {

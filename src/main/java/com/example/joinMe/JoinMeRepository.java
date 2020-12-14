@@ -20,7 +20,7 @@ public class JoinMeRepository {
         List<Activity> activities = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("Select A.*, M.EMAIL, MA.ISOWNER FROM ACTIVITY  A join MEMBERACTIVITY MA ON A.ACTIVITYID = MA.ACTIVITYID join MEMBER M ON M.MEMBERID = MA.MEMBERID WHERE A.ACTIVITYDATE >= CURRENT_DATE();");) {
+             PreparedStatement ps = conn.prepareStatement("Select A.*, M.EMAIL, MA.ISOWNER, C.CATEGORYNAME, FROM ACTIVITY  A  join MEMBERACTIVITY MA ON A.ACTIVITYID = MA.ACTIVITYID join MEMBER M ON M.MEMBERID = MA.MEMBERID join CATEGORY C ON C.CATEGORYID = A.CATEGORYID WHERE A.ACTIVITYDATE >= CURRENT_DATE();");) {
 
 
             ResultSet rs = ps.executeQuery();
@@ -217,6 +217,7 @@ public class JoinMeRepository {
                 DateUtil.toModelDate(rs.getTimestamp("ActivityDate")),
                 rs.getString("Location"),
                 rs.getInt("CategoryId"),
+                rs.getString("CategoryName"),
                 rs.getInt("isOwner"));
 
 
