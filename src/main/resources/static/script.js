@@ -13,3 +13,15 @@ function togglePopup2() {
 function togglePopup(index) {
         document.getElementById(index).classList.toggle("active");
 }
+function isOwner() {
+  var x = document.getElementsByClassName("false");
+  for(var i = 0; i<x.length; i++) {
+      x[i].style.display = "none";
+  }
+}
+function showAll() {
+  var x = document.getElementsByClassName("false");
+  for(var i = 0; i<x.length; i++) {
+    if (x[i].style.display === "none") {
+        x[i].style.display = "block";
+}}}

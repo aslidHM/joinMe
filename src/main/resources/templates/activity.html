@@ -28,9 +28,9 @@
         <div class="sub-menu">
             <div class="radio-container">
                 <div class="radio">
-                    <input type="radio" class="radio-input" value="option1" name="myRadio" id="myRadio1" checked>
+                    <input type="radio" class="radio-input" value="option1" name="myRadio" id="myRadio1" onclick="showAll();" checked >
                     <label for="myRadio1" class="radio-label" >All Activities</label>
-                    <input type="radio" class="radio-input" value="option2" name="myRadio" id="myRadio2">
+                    <input type="radio" class="radio-input" value="option2" name="myRadio" id="myRadio2" onclick="isOwner();">
                     <label for="myRadio2" class="radio-label">My Activities</label>
                 </div>
 
@@ -39,14 +39,13 @@
                     <div class="overlay"></div>
                     <div class="content">
                         <div class="close-btn" onclick="togglePopup2()"><i class="far fa-window-close"></i></div>
-                        <h2 class="h2">New Activity </h1>
+                        <h2 class="h2">New Activity </h2>
 
                             <table class="table">
 
                                 <form autocomplete="off">
                                     <tr>
                                         <td>
-                                            <div>
                                                 <span>Activity </span>
                                         </td>
                                         <td>
@@ -55,7 +54,6 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div>
                                                 <span >Location </span>
                                         </td>
                                         <td>
@@ -127,7 +125,7 @@
 
             <div class="card-container">
                 <div th:each="activity : ${activities}">
-                    <div class="card">
+                    <div class="card" th:classappend="${(activity.isOwner == 0) ? 'false' : ''}">
                         <div class="circle">
                             <img th:src="${activity.categoryId} + '.png'">
                         </div>
@@ -161,6 +159,7 @@
             <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
         </svg>
     </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
