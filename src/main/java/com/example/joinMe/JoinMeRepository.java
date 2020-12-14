@@ -80,19 +80,15 @@ public class JoinMeRepository {
 
     }
 
-    public String addActivity(Activity activity, int memberID) {
-        int generatedActivityId =0;
+    public void addActivity(Activity activity, int memberID) {
+        int generatedActivityId = 0;
 
-        String generatedKeys[]= {"ActivityId"};
-
+        String generatedKeys[] = {"ActivityId"};
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("INSERT INTO Activity (ActivityName, MaxMembers, ActivityDate, Location , CategoryId) VALUES (?, ?, ?, ?, ?)", generatedKeys);
-             PreparedStatement ps1 = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?, ?)");)
-
-        {
-
-           conn.setAutoCommit(false);
+             PreparedStatement ps1 = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?, ?)");) {
+            conn.setAutoCommit(false);
             ps.setString(1, activity.getActivityName());
             ps.setInt(2, activity.getMaxMembers());
             ps.setTimestamp(3, DateUtil.toDbFormat(activity.getActivityDate()));
@@ -104,7 +100,6 @@ public class JoinMeRepository {
                 generatedActivityId = rs.getInt("ActivityId");
             }
 
-
             ps1.setInt(1, memberID);
             ps1.setInt(2, generatedActivityId);
             ps1.setInt(3, activity.getIsOwner());
@@ -112,30 +107,51 @@ public class JoinMeRepository {
 
             conn.commit();
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
-
-        return "AddActivity";
     }
 
-
-    public String deleteActivity(int activityID) {
+    public void editActivity(Activity activity) {
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("DELETE FROM Activity WHERE ACTIVITYID = ?");) {
-
-            ps.setInt(1, activityID);
+             PreparedStatement ps = conn.prepareStatement("UPDATE Activity SET ActivityName = ?, MaxMembers = ?, " +
+                     " ActivityDate = ?, Location = ?, CategoryId = ? Where ActivityID = ?");) {
+            ps.setString(1, activity.getActivityName());
+            ps.setInt(2, activity.getMaxMembers());
+            ps.setTimestamp(3, DateUtil.toDbFormat(activity.getActivityDate()));
+            ps.setString(4, activity.getLocation());
+            ps.setInt(5, activity.getCategoryId());
+            ps.setInt(6, activity.getID());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return "AddBook";
+    }
+
+    public void deleteActivity(int activityID) {
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM MemberActivity WHERE ActivityId = ?");
+             PreparedStatement ps1 = conn.prepareStatement("DELETE FROM Activity WHERE ActivityId = ?");) {
+
+            conn.setAutoCommit(false);
+
+            ps.setInt(1, activityID);
+            ps.executeUpdate();
+
+            ps1.setInt(1, activityID);
+            ps1.executeUpdate();
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // Helper method to create a Activity object instantiated with data from the ResultSet
