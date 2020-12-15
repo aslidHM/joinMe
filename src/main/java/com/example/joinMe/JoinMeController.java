@@ -96,7 +96,7 @@ public class JoinMeController {
     }
 
 
-    @PostMapping("/tryLogin")
+    @GetMapping("/tryLogin")
     String form(@RequestParam String email, String password, Model model, HttpSession session) {
         Member member = repository.CheckMemberLogin(email, password);
         if(member!=null){
