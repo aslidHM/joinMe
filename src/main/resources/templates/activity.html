@@ -20,7 +20,7 @@
                 <a href="/activities"><li>ACTIVITIES</li></a>
                 <a href="/contact"><li>CONTACT</li></a>
             </ul>
-            <button type="button" class="btn-sign-in">SIGN IN</button>
+            <a src="/login" class="btn-sign-in">SIGN IN</a>
         </div>
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </div>
@@ -40,67 +40,87 @@
                     <div class="content">
                         <div class="close-btn" onclick="togglePopup2()"><i class="far fa-window-close"></i></div>
                         <h2 class="h2">New Activity </h2>
+                        <table class="table">
 
-                            <table class="table">
+                            <form autocomplete="off" action="/addActivity" method="POST">
+                                <tr>
+                                    <td>
+                                            <span>Activity </span>
+                                    </td>
+                                    <td>
+                                        <input type="text">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                            <span >Category </span>
+                                    </td>
+                                    <td>
+                                        <select class="" name="format">
+                                            <option selected disabled>Select Category..</option>
+                                            <option value="Lunch">Lunch</option>
+                                            <option value="Exercise">Exercise</option>
+                                            <option value="Fika">Fika</option>
+                                            <option value="Run">Run</option>
+                                            <option value="Run">Meet</option>
+                                        </select>
+                                    </td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Max Participants </span>
+                                    </td>
+                                    <td>
+                                        <select class="" name="format">
+                                            <option selected disabled>Select Number..</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                            <span >Location </span>
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="" />
+                                    </td>
+                                    </td>
+                                </tr>
 
-                                <form autocomplete="off">
-                                    <tr>
-                                        <td>
-                                                <span>Activity </span>
-                                        </td>
-                                        <td>
-                                            <input type="text">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                                <span >Location </span>
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="" />
-                                        </td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>Max Participants </span>
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>Date</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" >
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td >
-                                            <span>Time</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" >
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    <tr>
-                                        <td >
-                                            <span>Participants</span>
-                                        </td>
-                                        <td>
-                                            <input type="text" >
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button class="button">Add Me </button><button class="button">Save </button>
-                                        </td>
-                                    </tr>
-                                </form>
-                            </table>
+                                <tr>
+                                    <td>
+                                        <span>Date</span>
+                                    </td>
+                                    <td>
+                                        <input type="date" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >
+                                        <span>Time</span>
+                                    </td>
+                                    <td>
+                                        <input type="time" >
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <br><input type="submit" class="add"> SAVE </input>
+                                    </td>
+                                </tr>
+                            </form>
+                        </table>
 
                     </div>
                 </div>
@@ -144,7 +164,7 @@
                         <div class="content">
                             <div class="close-btn" th:onclick="|togglePopup('${activityStat.count}')|"><i class="far fa-window-close"></i></div>
                             <h2 th:text="${activity.ActivityName}">Title</h2>
-                            <p>Category: </p><span th:text="${activity.ActivityName}"></span>
+                            <p>Category: </p><span th:text="${activity.email}"></span>
                             <p>Date: </p><span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span>
                             <p>Time: </p><span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span>
                         </div>

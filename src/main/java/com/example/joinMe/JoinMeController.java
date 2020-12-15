@@ -41,6 +41,7 @@ public class JoinMeController {
 
         List<Activity> activities = repository.getActivities();
         model.addAttribute("activities", activities);
+
         return "activity";
     }
 
