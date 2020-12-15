@@ -20,7 +20,7 @@
                 <a th:href="${session.member != null} ? '/activities' : '#'"><li>ACTIVITIES</li></a>
                 <a href="/contact"><li>CONTACT</li></a>
             </ul>
-            <a th:href="${session.member != null} ? '/logout' : '/login'" class="btn-sign-in" th:text="${session.member != null} ? 'SIGN OUT' : 'SIGN IN'"></a>
+            <span th:text="${session.member}"></span>&nbsp;&nbsp;<a th:href="${session.member != null} ? '/logout' : '/login'" class="btn-sign-in" th:text="${session.member != null} ? 'SIGN OUT' : 'SIGN IN'"></a>
         </div>
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </div>

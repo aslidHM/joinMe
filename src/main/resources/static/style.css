@@ -501,9 +501,12 @@ h3{
         }
         .text{
         grid-column: 1/3;
-}
-        .bgimg{
+        }
+        .select-container{
         display: none;
+        }
+        .bgimg{
+
 }
         .nav-bar{
                 padding: 10px 30px;
