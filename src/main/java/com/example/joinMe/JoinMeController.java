@@ -96,7 +96,7 @@ public class JoinMeController {
     }
 
 
-    @GetMapping("/tryLogin")
+    @PostMapping("/tryLogin")
     String form(@RequestParam String email, String password, Model model, HttpSession session) {
         Member member = repository.CheckMemberLogin(email, password);
         if(member!=null){
@@ -114,6 +114,6 @@ public class JoinMeController {
     String logout(HttpSession session) {
         session.removeAttribute("member");
         session.removeAttribute("newMember");
-        return "signIn";
+        return "index";
     }
 }

@@ -3,7 +3,7 @@ package com.example.joinMe;
 public class Member {
 
     private int memberID;
-    private String emailAddress;
+    private String email;
     private String fullName;
     private String password;
 
@@ -11,7 +11,7 @@ public class Member {
 
         this.memberID = memberId;
         this.fullName = fullName;
-        this.emailAddress = email;
+        this.email = email;
         this.password = password;
     }
 
@@ -23,12 +23,12 @@ public class Member {
         this.memberID = memberID;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFullName() {
