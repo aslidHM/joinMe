@@ -60,10 +60,10 @@ public class JoinMeController {
     }
 
     @PostMapping("/addActivity")
-    public String addActivity (@PathVariable int memberID, @ModelAttribute Activity activity) {
-       // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
-
-        repository.addActivity(activity, memberID);
+    public String addActivity (@ModelAttribute Activity activity, HttpSession session) {
+        // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
+        Member member = (Member) session.getAttribute("member");
+        repository.addActivity(activity, member.getMemberID());
         return "activity";
     }
     @GetMapping("/editActivity")
@@ -78,9 +78,9 @@ public class JoinMeController {
     }
 
     @PostMapping("/addMemberToActivity")
-    public String addMemberToActivity (@PathVariable int memberID, @PathVariable int activityId) {
-
-        repository.addMemberToActivity(memberID, activityId);
+    public String addMemberToActivity (@ModelAttribute Activity activity, HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        repository.addMemberToActivity(member.getMemberID(), activity.getID());
         return "activity";
     }
 
@@ -101,7 +101,10 @@ public class JoinMeController {
     String form(@RequestParam String email, String password, Model model, HttpSession session) {
         Member member = repository.CheckMemberLogin(email, password);
         if(member!=null){
-            session.setAttribute("member", member);
+            session.setAttribute("memberId", member.getMemberID());
+            session.setAttribute("fullName", member.getFullName());
+            session.setAttribute("email", member.getEmail());
+            session.setAttribute("password", member.getPassword());
             return "index";
         }
         else{
@@ -117,4 +120,14 @@ public class JoinMeController {
         session.removeAttribute("newMember");
         return "index";
     }
+
+    @PostMapping("/addMember")
+    String addMember(@PathVariable int activityId, HttpSession session) {
+        // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
+        Member member = (Member) session.getAttribute("member");
+        repository.addMemberToActivity(activityId, member.getMemberID());
+        return "index";
+    }
+
+
 }
