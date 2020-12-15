@@ -59,7 +59,7 @@ public class JoinMeController {
         return "activities";
     }
 
-    @GetMapping("/addActivity")
+    @PostMapping("/addActivity")
     public String addActivity (@PathVariable int memberID, @ModelAttribute Activity activity) {
        // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
 
@@ -77,7 +77,7 @@ public class JoinMeController {
         return "activity";
     }
 
-    @GetMapping("/addMemberToActivity")
+    @PostMapping("/addMemberToActivity")
     public String addMemberToActivity (@PathVariable int memberID, @PathVariable int activityId) {
 
         repository.addMemberToActivity(memberID, activityId);

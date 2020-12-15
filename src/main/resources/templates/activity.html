@@ -162,11 +162,17 @@
                     <div class="popup" th:id="${activityStat.count}">
                         <div class="overlay"></div>
                         <div class="content">
+                            <form autocomplete="off" action="/addMemberToActivity" method="POST">
                             <div class="close-btn" th:onclick="|togglePopup('${activityStat.count}')|"><i class="far fa-window-close"></i></div>
                             <h2 th:text="${activity.ActivityName}">Title</h2>
-                            <p>Category: </p><span th:text="${activity.email}"></span>
-                            <p>Date: </p><span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span>
-                            <p>Time: </p><span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span>
+                            <span><strong>Category: </strong></span><span th:text="${activity.categoryName}"></span><br>
+                            <span><strong>location: </strong></span><span th:text="${activity.location}"></span><br>
+                            <span><strong>Max Participants: </strong></span><span th:text="${activity.maxMembers}"></span><br>
+                            <span><strong>Date: </strong></span><span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span><br>
+                            <span><strong>Time: </strong></span><span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span><br>
+                            <span><strong>Members: </strong></span><span th:text="${activity.email}"></span><br><br>
+                            <input class="add" type="button" value="Add Me +"> <input class="add" type="submit" value="SAVE">
+                            </form>
                         </div>
                     </div>
                 </div>
