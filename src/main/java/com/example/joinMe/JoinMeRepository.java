@@ -207,6 +207,24 @@ public class JoinMeRepository {
 
     }
 
+    public void addMember(String fullName, String email, String password) {
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO Member VALUES ( ?, ?, ?)");) {
+
+            ps.setString(1, fullName);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.executeUpdate();
+
+            conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     // Helper method to create a Activity object instantiated with data from the ResultSet
     private Activity rsActivity(ResultSet rs) throws SQLException {
 

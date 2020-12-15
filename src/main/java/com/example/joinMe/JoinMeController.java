@@ -116,16 +116,18 @@ public class JoinMeController {
 
     @GetMapping("/logout")
     String logout(HttpSession session) {
-        session.removeAttribute("member");
+        session.removeAttribute("memberId");
+        session.removeAttribute("fullName");
+        session.removeAttribute("email");
+        session.removeAttribute("password");
         session.removeAttribute("newMember");
         return "index";
     }
 
     @PostMapping("/addMember")
-    String addMember(@PathVariable int activityId, HttpSession session) {
-        // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
-        Member member = (Member) session.getAttribute("member");
-        repository.addMemberToActivity(activityId, member.getMemberID());
+    String addMember(@PathVariable String fullName, @PathVariable String email, @PathVariable String password, HttpSession session) {
+
+        repository.addMember(fullName, email, password);
         return "index";
     }
 
