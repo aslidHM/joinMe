@@ -175,7 +175,7 @@ font-family: 'Quicksand', sans-serif;
         justify-content: space-between;
 }
 
-select::-ms-expand {
+.select-box::-ms-expand {
    display: none;
 }
 .select-container{
@@ -206,7 +206,7 @@ select::-ms-expand {
    pointer-events:none;
    transition:.25s all ease;
 }
-select {
+.select-box {
    -webkit-appearance:none;
    -moz-appearance:none;
    -ms-appearance:none;
@@ -221,6 +221,18 @@ select {
    color:#fff;
    cursor:pointer;
    font-size: 1em;
+   font-family: 'Quicksand', sans-serif;
+}
+select {
+
+   outline:0;
+   box-shadow:none;
+   border: 1px solid red;
+   background-image: none;
+   padding: 0 .5em;
+   cursor:pointer;
+   font-size: 1em;
+   width: 224px;
    font-family: 'Quicksand', sans-serif;
 }
 
@@ -393,7 +405,7 @@ h3{
   transform:translate(-50%,-50%) scale(0);
   background:#fff;
   width:400px;
-  height:550px;
+  height:400px;
   z-index:2;
   text-align:left;
   padding-top:10px;
