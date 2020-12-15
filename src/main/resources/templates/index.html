@@ -27,7 +27,7 @@
     <div class="main-text">
         <div class="text">
             <h1><span class="sp">Together</span> Is A Wonderful Place<br> To Be!</h1>
-            <a src="/login" class="btn-sign-in">SIGN UP</a>
+            <a th:href="${session.member != null} ? '/logout' : '/login'" class="btn-sign-in" th:text="${session.member != null} ? 'SIGN OUT' : 'SIGN UP'"></a>
         </div>
         <div class="bgimg"><img class="bg" src="bg2.png" alt=""></div>
     </div>
