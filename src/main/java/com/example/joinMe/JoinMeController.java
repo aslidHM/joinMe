@@ -52,8 +52,8 @@ public class JoinMeController {
         return "activities";
     }
 
-    @PostMapping("/activities/{memberID}")
-    public String getActivitiesMember (@PathVariable int memberID, Model model) {
+    @PostMapping("/activities/")
+    public String getMembersForOneActivity (@PathVariable int memberID, Model model) {
         //get activities by category
         // model.addAttribute("activities", repository.getActivitiesByMember(memberID));
         return "activities";
@@ -61,8 +61,9 @@ public class JoinMeController {
 
     @PostMapping("/addActivity")
     public String addActivity (@ModelAttribute Activity activity, HttpSession session) {
-        // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
-        Member member = (Member) session.getAttribute("member");
+         //Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, "1", 1);
+
+         Member member = (Member) session.getAttribute("member");
         repository.addActivity(activity, member.getMemberID());
         return "activity";
     }
