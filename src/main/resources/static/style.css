@@ -153,6 +153,15 @@ font-family: 'Quicksand', sans-serif;
 .nav-links .btn-sign-in{
         float: right;
 }
+.nav-links .user-name{
+        float: right;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: bold;
+        color: red;
+        margin-top: 10px;
+        margin-right: 25px;
+        font-size: 16px;
+}
 .main{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -498,7 +507,7 @@ h3{
   border: 1px solid #ffffff;
 }
 
-.bloc #select1 {
+.bloc .select1 {
   padding: 2px;
   padding-left: 5px;
   margin: -5px -20px -5px -5px;

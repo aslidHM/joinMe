@@ -14,13 +14,13 @@ INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE, LOCATI
 (3, 'Springa på lunchen', 8, {ts '2020-12-24 12:00:00.0'}, 'Utanför ingången');
 
 INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE , LOCATION) VALUES
-(2, 'Promenera på lunchen', 4, {ts '2020-12-16 11:00:00.0'}, 'Möts utanför m28a');
+(2, 'Promenera på lunchen', 4, {ts '2020-12-19 11:00:00.0'}, 'Möts utanför m28a');
 
 INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE , LOCATION) VALUES
 (1, 'Äta på Nida', 4, {ts '2020-12-20 12:00:00.0'}, 'Möts vid spärrarna');
 
 INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE , LOCATION) VALUES
-(1, 'Äta ute: Indiskt', 4, {ts '2020-12-15 11:00:00.0'}, 'Möts vid kajen');
+(1, 'Äta ute: Indiskt', 4, {ts '2020-12-25 11:00:00.0'}, 'Möts vid kajen');
 
 
 

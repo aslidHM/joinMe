@@ -79,9 +79,12 @@ public class JoinMeController {
     }
 
     @PostMapping("/addMemberToActivity")
-    public String addMemberToActivity (@ModelAttribute Activity activity, HttpSession session) {
+    public String addMemberToActivity (@ModelAttribute Activity activity, HttpSession session, Model model) {
         Member member = (Member) session.getAttribute("member");
-        repository.addMemberToActivity(member.getMemberID(), activity.getID());
+        repository.addMemberToActivity(activity.getID(), member.getMemberID());
+
+        List<Activity> activities = repository.getActivities();
+        model.addAttribute("activities", activities);
         return "activity";
     }
 
