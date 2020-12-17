@@ -21,9 +21,9 @@ function isOwner() {
   }
 }
 function showAll() {
-  var x = document.getElementsByClassName("myActivity");
+  var x = document.getElementsByClassName("notMyActivity");
   for(var i = 0; i<x.length; i++) {
-    if (x[i].style.display === "none") {
+    if (x[i].style.display == "none") {
         x[i].style.display = "block";
     }
   }

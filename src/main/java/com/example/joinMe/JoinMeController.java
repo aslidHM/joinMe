@@ -92,14 +92,14 @@ public class JoinMeController {
     @GetMapping("/deleteActivity")
     public String deleteActivity(@PathVariable int activityId) {
         repository.deleteActivity(activityId);
-        return "activity";
+        return "redirect:/activities";
     }
 
     @GetMapping("/deleteMemberFromActivity")
     public String deleteMemberFromActivity(@PathVariable int activityId, HttpSession session) {
         Member member = (Member) session.getAttribute("member");
         repository.deleteMemberFromActivity(activityId, member.getMemberID());
-        return "activity";
+        return "redirect:/activities";
     }
 
 

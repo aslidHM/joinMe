@@ -28,10 +28,17 @@ public class JoinMeRepository {
                 activities.add(rsActivity(rs));
 
             }
-            for (Activity a: activities) {
+            for (Activity a : activities) {
                 List<Member> members = new ArrayList<>();
+
                 members = getMembersForOneActivity(a.getActivityId());
                 a.setActivityMembers(members);
+
+                List<Integer> memberIdList = new ArrayList<>();
+                for (Member m:a.getActivityMembers()) {
+                    memberIdList.add(m.getMemberID());
+                }
+                a.setMemberIdList(memberIdList);
             }
 
         } catch (SQLException e) {
@@ -164,7 +171,7 @@ public class JoinMeRepository {
     public void addMemberToActivity(int activityId, int memberID) {
 
         try (Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?)");) {
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?)");) {
 
             ps.setInt(1, memberID);
             ps.setInt(2, activityId);
@@ -177,6 +184,7 @@ public class JoinMeRepository {
         }
 
     }
+
     public void editActivity(Activity activity) {
 
         try (Connection conn = dataSource.getConnection();
@@ -233,22 +241,22 @@ public class JoinMeRepository {
 
     }
 
-    public Member CheckMemberLogin(String email, String password){
+    public Member CheckMemberLogin(String email, String password) {
         Member member = null;
-        try(Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM MEMBER AS M WHERE M.Email=? AND M.Password=?")){
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM MEMBER AS M WHERE M.Email=? AND M.Password=?")) {
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                member =(rsMember(rs));
+            if (rs.next()) {
+                member = (rsMember(rs));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(member==null){
+        if (member == null) {
             return null;
-        }else{
+        } else {
             return member;
         }
 
@@ -274,7 +282,7 @@ public class JoinMeRepository {
 
     // Helper method to create a Activity object instantiated with data from the ResultSet
     private Activity rsActivity(ResultSet rs) throws SQLException {
-    List<Member> members = new ArrayList<>();
+        List<Member> members = new ArrayList<>();
         return new Activity(rs.getInt("ActivityId"),
                 rs.getString("ActivityName"),
                 rs.getInt("MaxMembers"),

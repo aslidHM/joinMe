@@ -18,6 +18,8 @@ public class Activity {
     private int ownerMemberId;
     private List<Member> activityMembers;
 
+    private List<Integer> memberIdList;
+
     public Activity() {
 
     }
@@ -34,9 +36,6 @@ public class Activity {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.ownerMemberId = ownerMemberId;
-
-
-
     }
 
     public void setActivityMembers(List<Member> activityMembers) {
@@ -47,13 +46,25 @@ public class Activity {
         this.activityMembers = activityMembers;
     }
 
+    public List<Member> getActivityMembers() {
+        return activityMembers;
+    }
+
+    public List<Integer> getMemberIdList() {
+
+        return memberIdList;
+    }
+
+    public void setMemberIdList(List<Integer> memberIdList) {
+
+        this.memberIdList = memberIdList;
+    }
+
     public String getCategoryName() {
         return categoryName;
     }
 
-    public List<Member> getActivityMembers() {
-        return activityMembers;
-    }
+
 
     public int getCategoryId() {
         return categoryId;

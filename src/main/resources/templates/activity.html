@@ -131,7 +131,7 @@
 
             <div class="card-container">
                 <div th:each="activity : ${activities}">
-                    <div  class="card" th:classappend="${(((activity.ownerMemberId !=  session.memberId) && (${#arrays.contains(activity.activityMembers[1], session.memberId)})) ? 'notMyActivity ' : '') + activity.categoryName}" >
+                    <div  class="card" th:classappend="${(((activity.ownerMemberId !=  session.memberId) && (!#arrays.contains(activity.memberIdList, session.memberId))) ? 'notMyActivity ' : '') + activity.categoryName}" >
                         <div class="circle">
                             <img th:src="${activity.categoryId} + '.png'">
                         </div>
