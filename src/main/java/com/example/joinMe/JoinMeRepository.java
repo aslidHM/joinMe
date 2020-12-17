@@ -141,14 +141,14 @@ public class JoinMeRepository {
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("INSERT INTO Activity (ActivityName, MaxMembers, ActivityDate, Location , CategoryId, ownerMemberId) VALUES (?, ?, ?, ?, ?, ?)", generatedKeys);
-             PreparedStatement ps1 = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?, ?)");) {
+             PreparedStatement ps1 = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?)");) {
             conn.setAutoCommit(false);
             ps.setString(1, activity.getActivityName());
             ps.setInt(2, activity.getMaxMembers());
             ps.setTimestamp(3, DateUtil.toDbFormat(activity.getActivityDate()));
             ps.setString(4, activity.getLocation());
             ps.setInt(5, activity.getCategoryId());
-            ps.setInt(5, activity.getOwnerMemberId());
+            ps.setInt(6, activity.getOwnerMemberId());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();

@@ -29,6 +29,16 @@ function showAll() {
   }
 }
 
+function deleteBtn(deletee, popupp){
+
+var x = document.getElementById(deletee);
+var y = document.getElementById(popupp);
+console.log(x)
+console.log(y)
+    x.remove();
+    y.remove();
+}
+
 function addValue(block, addMe) {
         var v = document.getElementById("hidden-field").value;
         var len = block.length;

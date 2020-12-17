@@ -131,7 +131,7 @@
 
             <div class="card-container">
                 <div th:each="activity : ${activities}">
-                    <div  class="card" th:classappend="${(((activity.ownerMemberId !=  session.memberId) && (!#arrays.contains(activity.memberIdList, session.memberId))) ? 'notMyActivity ' : '') + activity.categoryName}" >
+                    <div th:id="'cardd' + ${activity.activityId}" class="card" th:classappend="${(((activity.ownerMemberId !=  session.memberId) && (!#arrays.contains(activity.memberIdList, session.memberId))) ? 'notMyActivity ' : '') + activity.categoryName}" >
                         <div class="circle">
                             <img th:src="${activity.categoryId} + '.png'">
                         </div>
@@ -169,7 +169,7 @@
                                         </div></td></tr>
                                     <tr>
                                         <td>
-                                            <input class="add" type="submit" value="SAVE">
+                                            <input name="save" class="add" type="submit" value="SAVE"/>&nbsp&nbsp<input name="delete" type="button" class="add" th:classappend="'delete' + ${activityStat.count}" value="DELETE" th:onclick="|deleteBtn('cardd${activity.activityId}', '${activityStat.count}')|"/></td>
                                         </td><td>
                                         <input name="txtValue" type="hidden" id="hidden-field" th:value="${session.fullName}"/>
                                         <input th:onclick="|addValue(select${activityStat.count}, addMe${activityStat.count})|" class="add" th:id="addMe+${activityStat.count}" type="button" name="add" value="Add Me +"/>
