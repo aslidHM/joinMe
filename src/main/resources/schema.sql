@@ -12,8 +12,7 @@ CREATE TABLE Category(
 
 CREATE TABLE MemberActivity(
   MemberId BIGINT,
-  ActivityId BIGINT,
-  IsOwner BIT NOT NULL
+  ActivityId BIGINT
 );
 CREATE TABLE Activity(
   ActivityId BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -21,7 +20,8 @@ CREATE TABLE Activity(
   MaxMembers BIGINT,
   ActivityDate TIMESTAMP NOT NULL,
   Location VARCHAR(64) NOT NULL,
-  CategoryId BIGINT NOT NULL
+  CategoryId BIGINT NOT NULL,
+  OwnerMemberId BIGINT NOT NULL
 );
 
 

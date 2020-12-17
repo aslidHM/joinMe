@@ -8,14 +8,14 @@ public class Activity {
 
     private int activityId;
     private String activityName;
-    private String email;
+
     private int maxMembers;
     private ZonedDateTime activityDate;
     //private Time activityTime;
     private String location;
     private int categoryId;
     private String categoryName;
-    private int isOwner;
+    private int ownerMemberId;
 
 
     public Activity() {
@@ -23,18 +23,17 @@ public class Activity {
     }
     private List<Member> activityMembers;
 
-    public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate, String location, int categoryId, String categoryName, int isOwner) {
+    public Activity(int activityId, String activityName, int maxMembers, ZonedDateTime activityDate, String location, int categoryId, String categoryName, int ownerMemberId) {
 
         this.activityId = activityId;
         this.activityName = activityName;
-        this.email = email;
         this.maxMembers = maxMembers;
         this.activityDate = activityDate;
         // this.activityTime = activityTime;
         this.location = location;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
-        this.isOwner = isOwner;
+        this.ownerMemberId = ownerMemberId;
 
     }
 
@@ -86,13 +85,6 @@ public class Activity {
         this.activityName = activityName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public int getMaxMembers() {
         return maxMembers;
@@ -120,12 +112,12 @@ public class Activity {
         this.location = location;
     }
 
-    public int getIsOwner() {
-        return isOwner;
+    public int getOwnerMemberId() {
+        return ownerMemberId;
     }
 
-    public void setIsOwner(int isOwner) {
-        this.isOwner = isOwner;
+    public void setOwnerMemberId(int ownerMemberId) {
+        this.ownerMemberId = ownerMemberId;
     }
 
     public void updateWithDisplayDateAndTime(DisplayDateAndTime dt) {

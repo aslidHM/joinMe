@@ -15,7 +15,7 @@ function togglePopup(index) {
         document.getElementById(index).classList.toggle("active");
 }
 function isOwner() {
-  var x = document.getElementsByClassName("myActivity");
+  var x = document.getElementsByClassName("notMyActivity");
   for(var i = 0; i<x.length; i++) {
       x[i].style.display = "none";
   }

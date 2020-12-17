@@ -20,7 +20,7 @@ public class JoinMeRepository {
         List<Activity> activities = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("Select  A.*,  C.CATEGORYNAME, MA.ISOWNER,MA.MEMBERID, M.EMAIL FROM ACTIVITY  A  join CATEGORY C ON C.CATEGORYID = A.CATEGORYID join MEMBERACTIVITY MA on MA.ACTIVITYID = A.ACTIVITYID join MEMBER M on M.MEMBERID = MA.MEMBERID WHERE MA.ISOWNER = 1 and A.ACTIVITYDATE >= CURRENT_DATE();");) {
+             PreparedStatement ps = conn.prepareStatement("Select  A.*,  C.CATEGORYNAME FROM ACTIVITY  A  join CATEGORY C ON C.CATEGORYID = A.CATEGORYID  WHERE A.ACTIVITYDATE >= CURRENT_DATE();");) {
 
 
             ResultSet rs = ps.executeQuery();
@@ -109,9 +109,10 @@ public class JoinMeRepository {
         Date currDate = new Date();
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("Select a.*, ma.IsOwner FROM Activity a Join MemberActivity ma On a.ActivityId= ma.ActivityId join Member m on m.MemberId = ma.MemberId WHERE a.ActivityDate >= CURRENT_DATE() AND ma.memberId = ?");) {
+             PreparedStatement ps = conn.prepareStatement("Select a.* FROM Activity a Join MemberActivity ma On a.ActivityId= ma.ActivityId join Member m on m.MemberId = ma.MemberId WHERE a.ActivityDate >= CURRENT_DATE() AND ma.memberId = ? AND A.OwnerMemberId = ?");) {
 
             ps.setInt(1, memberID);
+            ps.setInt(2, memberID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 activities.add(rsActivity(rs));
@@ -132,7 +133,7 @@ public class JoinMeRepository {
         String generatedKeys[] = {"ActivityId"};
 
         try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO Activity (ActivityName, MaxMembers, ActivityDate, Location , CategoryId) VALUES (?, ?, ?, ?, ?)", generatedKeys);
+             PreparedStatement ps = conn.prepareStatement("INSERT INTO Activity (ActivityName, MaxMembers, ActivityDate, Location , CategoryId, ownerMemberId) VALUES (?, ?, ?, ?, ?, ?)", generatedKeys);
              PreparedStatement ps1 = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?, ?)");) {
             conn.setAutoCommit(false);
             ps.setString(1, activity.getActivityName());
@@ -140,6 +141,8 @@ public class JoinMeRepository {
             ps.setTimestamp(3, DateUtil.toDbFormat(activity.getActivityDate()));
             ps.setString(4, activity.getLocation());
             ps.setInt(5, activity.getCategoryId());
+            ps.setInt(5, activity.getOwnerMemberId());
+
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -148,7 +151,6 @@ public class JoinMeRepository {
 
             ps1.setInt(1, memberID);
             ps1.setInt(2, generatedActivityId);
-            ps1.setInt(3, activity.getIsOwner());
             ps1.executeUpdate();
 
             conn.commit();
@@ -162,11 +164,10 @@ public class JoinMeRepository {
     public void addMemberToActivity(int activityId, int memberID) {
 
         try (Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?, ?)");) {
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO MemberActivity VALUES ( ?, ?)");) {
 
             ps.setInt(1, memberID);
             ps.setInt(2, activityId);
-            ps.setInt(3, 0);
             ps.executeUpdate();
 
             conn.commit();
@@ -276,13 +277,12 @@ public class JoinMeRepository {
     List<Member> members = new ArrayList<>();
         return new Activity(rs.getInt("ActivityId"),
                 rs.getString("ActivityName"),
-                rs.getString("Email"),
                 rs.getInt("MaxMembers"),
                 DateUtil.toModelDate(rs.getTimestamp("ActivityDate")),
                 rs.getString("Location"),
                 rs.getInt("CategoryId"),
                 rs.getString("CategoryName"),
-                rs.getInt("isOwner"));
+                rs.getInt("ownerMemberId"));
 
     }
 

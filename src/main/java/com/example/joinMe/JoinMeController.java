@@ -63,8 +63,7 @@ public class JoinMeController {
         newActivity.updateWithDisplayDateAndTime(displayDateAndTime);
         Member member = (Member) session.getAttribute("member");
 
-        newActivity.setEmail(member.getEmail());
-        newActivity.setIsOwner(1);
+        newActivity.setOwnerMemberId(member.getMemberID());
         repository.addActivity(newActivity, member.getMemberID());
 
         getActivities(model);
