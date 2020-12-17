@@ -36,6 +36,26 @@ public class JoinMeRepository {
 
     }
 
+    public List<Category> getCategories() {
+        List<Category> categories = new ArrayList<>();
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("Select * from Category;");) {
+
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                categories.add(rsCategory(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
+
+
+    }
+
     public List<Activity> getActivityByCategory(int categoryID) {
         List<Activity> activities = new ArrayList<>();
         Date currDate = new Date();
@@ -251,5 +271,12 @@ public class JoinMeRepository {
 
     }
 
+    private Category rsCategory(ResultSet rs) throws SQLException {
+
+        return new Category(rs.getInt("CategoryId"),
+                rs.getString("CategoryName"));
+
+
+    }
 
 }

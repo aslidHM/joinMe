@@ -22,15 +22,18 @@ public class Activity {
     private String categoryName;
     private int isOwner;
 
+    public Activity() {
 
-    public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate,  String location, int categoryId, String categoryName, int isOwner) {
+    }
+
+    public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate, String location, int categoryId, String categoryName, int isOwner) {
 
         this.id = activityId;
         this.activityName = activityName;
         this.email = email;
         this.maxMembers = maxMembers;
         this.activityDate = activityDate;
-       // this.activityTime = activityTime;
+        // this.activityTime = activityTime;
         this.location = location;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
@@ -44,9 +47,11 @@ public class Activity {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
     public String categoryName() {
         return categoryName;
     }
@@ -89,16 +94,9 @@ public class Activity {
     }
 
     public void setActivityDate(ZonedDateTime activityDate) {
-        this.activityDate= activityDate;
+        this.activityDate = activityDate;
     }
 
-   /* public Time getActivityTime() {
-        return activityTime;
-    }
-
-    public void setActivityTime(Time activityTime) {
-        this.activityTime = activityTime;
-    }*/
 
     public String getLocation() {
         return location;
@@ -115,6 +113,12 @@ public class Activity {
     public void setIsOwner(int isOwner) {
         this.isOwner = isOwner;
     }
+
+    public void updateWithDisplayDateAndTime(DisplayDateAndTime dt) {
+        setActivityDate(ZonedDateTime.of(dt.getDate(), dt.getTime(), DateUtil.DEFAULT_ZONE));
+    }
+
+
 }
 
 
