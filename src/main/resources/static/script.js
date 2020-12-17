@@ -27,6 +27,23 @@ function showAll() {
         x[i].style.display = "block";
 }}}
 
+function addValue() {
+        var v = document.form1.txtValue.value;
+        var len = document.getElementById("select1").length;
+        AddOpt = new Option(v, v);
+        document.form1.lstValue.options[len] = AddOpt;
+        document.form1.addMe.setAttribute('onclick', 'removeValue()');
+        document.form1.addMe.setAttribute('value', 'Remove Me -');
+        return true;
+}
+function removeValue() {
+        var len = document.getElementById("select1").length;
+        document.form1.lstValue.options[len - 1] = null
+        document.form1.addMe.setAttribute('onclick', 'addValue()');
+        document.form1.addMe.setAttribute('value', 'Add Me +');
+        return true;
+}
+
 function myCategory() {
   var category = document.getElementById("select-box").value;
   var lunch = document.getElementsByClassName("lunch");

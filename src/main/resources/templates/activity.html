@@ -153,16 +153,31 @@
                     <div class="popup" th:id="${activityStat.count}">
                         <div class="overlay"></div>
                         <div class="content">
-                            <form autocomplete="off" action="/addMemberToActivity" method="POST">
-                            <div class="close-btn" th:onclick="|togglePopup('${activityStat.count}')|"><i class="far fa-window-close"></i></div>
-                            <h2 th:text="${activity.ActivityName}">Title</h2>
-                            <span><strong>Category: </strong></span><span th:text="${activity.categoryName}"></span><br>
-                            <span><strong>location: </strong></span><span th:text="${activity.location}"></span><br>
-                            <span><strong>Max Participants: </strong></span><span th:text="${activity.maxMembers}"></span><br>
-                            <span><strong>Date: </strong></span><span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span><br>
-                            <span><strong>Time: </strong></span><span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span><br>
-                            <span><strong>Members: </strong></span><span th:text="${activity.email}"></span><br><br>
-                            <input class="add" type="button" value="Add Me +"><input class="add" type="submit" value="SAVE">
+                            <form name="form1" autocomplete="off" action="/addMemberToActivity" method="POST">
+                                <div class="close-btn" th:onclick="|togglePopup('${activityStat.count}')|"><i class="far fa-window-close"></i></div>
+                                <h2 th:text="${activity.ActivityName}">Title</h2>
+                                <table class="table2">
+                                    <tr><td><span><strong>Category: </strong></span></td><td><span th:text="${activity.categoryName}"></span></td></tr>
+                                    <tr><td><span><strong>location: </strong></span></td><td><span th:text="${activity.location}"></span></td></tr>
+                                    <tr><td><span><strong>Max Participants: </strong></span></td><td><span th:text="${activity.maxMembers}"></span></td></tr>
+                                    <tr><td><span><strong>Date: </strong></span></td><td><span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span></td></tr>
+                                    <tr><td><span><strong>Time: </strong></span></td><td><span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span></td></tr>
+                                    <tr><td valign="top"><span><strong>Members: </strong></span></td>
+                                        <td><div class="bloc">
+                                            <select name="lstValue" id="select1" multiple >
+                                                <option value="empty" th:each="member : ${activity.activityMembers}" th:text="${member.fullName}">test</option>
+                                            </select>
+                                            <input name="txtValue" type="hidden" value="yusri" />
+                                        </div></td></tr>
+                                    <tr>
+                                        <td>
+                                            <input class="add" type="submit" value="SAVE">
+                                        </td><td>
+                                        <input class="add" id="addMe" type="button" name="add" value="Add Me +" onclick="addValue()">
+
+                                    </td>
+                                    </tr>
+                                </table>
                             </form>
                         </div>
                     </div>

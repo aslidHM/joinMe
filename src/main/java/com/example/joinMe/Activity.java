@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.sql.Time;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 
 public class Activity {
@@ -22,9 +23,11 @@ public class Activity {
     private String categoryName;
     private int isOwner;
 
+
     public Activity() {
 
     }
+    private List<Member> activityMembers;
 
     public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate, String location, int categoryId, String categoryName, int isOwner) {
 
@@ -38,6 +41,23 @@ public class Activity {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.isOwner = isOwner;
+
+    }
+
+    public void setActivityMembers(List<Member> activityMembers) {
+
+        /*for (Member member : activityMembers) {
+            activityMembers.add(member);
+        }*/
+        this.activityMembers = activityMembers;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public List<Member> getActivityMembers() {
+        return activityMembers;
     }
 
     public int getCategoryId() {
