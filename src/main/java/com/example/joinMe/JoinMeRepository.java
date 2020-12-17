@@ -30,7 +30,7 @@ public class JoinMeRepository {
             }
             for (Activity a: activities) {
                 List<Member> members = new ArrayList<>();
-                members = getMembersForOneActivity(a.getID());
+                members = getMembersForOneActivity(a.getActivityId());
                 a.setActivityMembers(members);
             }
 
@@ -186,7 +186,7 @@ public class JoinMeRepository {
             ps.setTimestamp(3, DateUtil.toDbFormat(activity.getActivityDate()));
             ps.setString(4, activity.getLocation());
             ps.setInt(5, activity.getCategoryId());
-            ps.setInt(6, activity.getID());
+            ps.setInt(6, activity.getActivityId());
             ps.executeUpdate();
 
         } catch (SQLException e) {

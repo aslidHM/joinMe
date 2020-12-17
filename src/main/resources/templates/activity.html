@@ -153,7 +153,7 @@
                     <div class="popup" th:id="${activityStat.count}">
                         <div class="overlay"></div>
                         <div class="content">
-                            <form name="form1" autocomplete="off" action="/addMemberToActivity" method="post">
+        <form name="form1" autocomplete="off" action="/addMemberToActivity" method="post">
                                 <div class="close-btn" th:onclick="|togglePopup('${activityStat.count}')|"><i class="far fa-window-close"></i></div>
                                 <h2 th:text="${activity.ActivityName}">Title</h2>
                                 <table class="table2">
@@ -165,9 +165,10 @@
                                     <tr><td valign="top"><span><strong>Members: </strong></span></td>
                                         <td><div class="bloc">
 
-                                            <input type="hidden" th:value="${activity.maxMembers}"/>
-                                            <input type="hidden" th:value="${activity.categoryId}"/>
-                                            <input type="hidden" th:value="${activity.isOwner}"/>
+                                            <input type="hidden" name="maxMembers" th:value="${activity.maxMembers}"/>
+                                            <input type="hidden" name="activityId" th:value="${activity.activityId}"/>
+                                            <input type="hidden" name="categoryId" th:value="${activity.categoryId}"/>
+                                            <input type="hidden" name="isOwner" th:value="${activity.isOwner}"/>
                                             <select name="lstValue" class="select1" th:id=" 'select' + ${activityStat.count}" multiple >
                                                 <option value="empty" th:each="member : ${activity.activityMembers}" th:text="${member.fullName}">test</option>
                                             </select>

@@ -83,10 +83,11 @@ public class JoinMeController {
     }
 
     @PostMapping("/addMemberToActivity")
-    public String addMemberToActivity(@ModelAttribute Activity activity, HttpSession session) {
+    public String addMemberToActivity(@RequestParam int activityId, HttpSession session) {
         Member member = (Member) session.getAttribute("member");
-        repository.addMemberToActivity(member.getMemberID(), activity.getID());
-        return "activity";
+        repository.addMemberToActivity(activityId, member.getMemberID());
+
+        return "redirect:/activities";
     }
 
     @GetMapping("/deleteActivity")

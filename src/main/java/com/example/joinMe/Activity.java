@@ -1,18 +1,12 @@
 package com.example.joinMe;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Time;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
 
 public class Activity {
 
-    private int id;
+    private int activityId;
     private String activityName;
     private String email;
     private int maxMembers;
@@ -31,7 +25,7 @@ public class Activity {
 
     public Activity(int activityId, String activityName, String email, int maxMembers, ZonedDateTime activityDate, String location, int categoryId, String categoryName, int isOwner) {
 
-        this.id = activityId;
+        this.activityId = activityId;
         this.activityName = activityName;
         this.email = email;
         this.maxMembers = maxMembers;
@@ -76,12 +70,12 @@ public class Activity {
         return categoryName;
     }
 
-    public int getID() {
-        return id;
+    public int getActivityId() {
+        return activityId;
     }
 
-    public void setID(int id) {
-        this.id = id;
+    public void setActivityId(int id) {
+        this.activityId = id;
     }
 
     public String getActivityName() {
