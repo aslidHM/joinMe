@@ -21,7 +21,7 @@
                                 <a href="/activities"><li>ACTIVITIES</li></a>
                                 <a href="/contact"><li>CONTACT</li></a>
                         </ul>
-                        <span th:text="${session.fullName}"></span>&nbsp;&nbsp;<a th:href="${session.fullName != null} ? '/logout' : '/login'" class="btn-sign-in" th:text="${session.fullName != null} ? 'SIGN OUT' : 'SIGN IN'"></a>
+                        &nbsp;&nbsp;<a th:href="${session.fullName != null} ? '/logout' : '/login'" class="btn-sign-in" th:text="${session.fullName != null} ? 'SIGN OUT' : 'SIGN IN'"></a><span class="user-name" th:text="${session.fullName}"></span>
                 </div>
                 <i class="fa fa-bars" onclick="showMenu()"></i>
         </div>
@@ -32,12 +32,7 @@
                         <div class="form-container sign-up-container">
                                 <form autocomplete="off" action="/addMember" method="POST">
                                         <h1 class="h1">Create Account</h1>
-                                        <div class="social-container">
-                                                <a href="#" class="social"><i class="i fab fa-facebook-f"></i></a>
-                                                <a href="#" class="social"><i class="i fab fa-google-plus-g"></i></a>
-                                                <a href="#" class="social"><i class="i fab fa-linkedin-in"></i></a>
-                                        </div>
-                                        <span class="spann">or use your email for registration</span>
+                                        <span class="spann">Use your email for registration</span>
                                         <input type="text" placeholder="Name" />
                                         <input type="email" placeholder="Email" />
                                         <input type="password" placeholder="Password" />
@@ -47,12 +42,6 @@
                         <div class="form-container sign-in-container">
                                 <form action="/tryLogin" method="POST">
                                         <h1 class="h1">Sign in</h1>
-                                        <div class="social-container">
-                                                <a href="#" class="social"><i class="i fab fa-facebook-f"></i></a>
-                                                <a href="#" class="social"><i class="i fab fa-google-plus-g"></i></a>
-                                                <a href="#" class="social"><i class="i fab fa-linkedin-in"></i></a>
-                                        </div>
-                                        <span class="spann">or use your account</span>
                                         <input type="text" placeholder="Email" name="email" />
                                         <input type="password" name="password" placeholder="Password" />
                                         <a href="#">Forgot your password?</a>
