@@ -16,12 +16,12 @@ public class Activity {
     private int categoryId;
     private String categoryName;
     private int ownerMemberId;
-
+    private List<Member> activityMembers;
 
     public Activity() {
 
     }
-    private List<Member> activityMembers;
+
 
     public Activity(int activityId, String activityName, int maxMembers, ZonedDateTime activityDate, String location, int categoryId, String categoryName, int ownerMemberId) {
 
@@ -34,6 +34,8 @@ public class Activity {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.ownerMemberId = ownerMemberId;
+
+
 
     }
 
