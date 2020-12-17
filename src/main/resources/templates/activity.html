@@ -43,12 +43,13 @@
                         <table class="table">
 
                             <form autocomplete="off" action="/addActivity" method="POST">
+                                <h2 th:text="${newActivity.ActivityName}">Title</h2>
                                 <tr>
                                     <td>
                                             <span>Activity </span>
                                     </td>
                                     <td>
-                                        <input type="text">
+                                        <input type="text" class="form-control"  placeholder="ActivityName" th:field="${newActivity.ActivityName}" required/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -56,14 +57,12 @@
                                             <span >Category </span>
                                     </td>
                                     <td>
-                                        <select class="" name="format">
-                                            <option selected disabled>Select Category..</option>
-                                            <option value="Lunch">Lunch</option>
-                                            <option value="Exercise">Exercise</option>
-                                            <option value="Fika">Fika</option>
-                                            <option value="Run">Run</option>
-                                            <option value="Run">Meet</option>
+                                        <select class="" name="format" th:field="${newActivity.categoryId}">
+                                            <option value="0" selected disabled>Select category...</option>
+                                            <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}" >
+                                            </option>
                                         </select>
+
                                     </td>
                                     </td>
                                 </tr>
@@ -72,27 +71,16 @@
                                         <span>Max Participants </span>
                                     </td>
                                     <td>
-                                        <select class="" name="format">
-                                            <option selected disabled>Select Number..</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </select>
+                                        <input type="number"  min="1" max="10" class="form-control"  placeholder="MaxParticipants" th:field="${newActivity.MaxMembers}"  required/>
                                     </td>
+
                                 </tr>
                                 <tr>
                                     <td>
                                             <span >Location </span>
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="" />
+                                        <input type="text" class="form-control"  placeholder="Location" th:field="${newActivity.Location}" required/>
                                     </td>
                                     </td>
                                 </tr>
@@ -102,7 +90,7 @@
                                         <span>Date</span>
                                     </td>
                                     <td>
-                                        <input type="date" >
+                                         <input type="date" class="form-control"  placeholder="DisplayDate" th:field="${displayDateAndTime.date}" required/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -110,13 +98,13 @@
                                         <span>Time</span>
                                     </td>
                                     <td>
-                                        <input type="time" >
+                                        <input type="time" class="form-control"  placeholder="DisplayTime" th:field="${displayDateAndTime.time}" required/>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <br><button class="add" type="submit"> SAVE </button>
+                                        <br><button class="add" type="submit" > SAVE </button>
                                     </td>
                                 </tr>
                             </form>
@@ -128,14 +116,17 @@
 
             <div class="select-container">
                 <div class="select">
-                    <select id="select-box" name="format" onchange="myCategory();">
-                        <option selected disabled>Select Category..</option>
+                  <select id="select-box" name="format" onchange="myCategory();">
+                        <!--<option selected disabled>Select Category..</option>
                         <option value="allCategories">Show All</option>
                         <option value="lunch">Lunch</option>
                         <option value="exercise">Exercise</option>
                         <option value="fika">Fika</option>
                         <option value="run">Run</option>
-                        <option value="meet">Meet</option>
+                        <option value="meet">Meet</option>-->
+                      <option selected disabled>Select category...</option>
+                      <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}">
+                      </option>
                     </select>
                 </div>
             </div>

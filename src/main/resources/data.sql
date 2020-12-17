@@ -11,16 +11,16 @@ INSERT INTO CATEGORY (CATEGORYNAME) VALUES('meet');
 
 
 INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE, LOCATION) VALUES
-(3, 'Springa på lunchen', 8, {ts '2020-12-24 12:00:00.0'}, 'Utanför ingången');
+(3, 'Run at lunch', 8, {ts '2020-12-24 12:00:00.0'}, 'Meetup outside M28');
 
 INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE , LOCATION) VALUES
-(2, 'Promenera på lunchen', 4, {ts '2020-12-19 11:00:00.0'}, 'Möts utanför m28a');
+(2, 'Power Walk', 4, {ts '2020-12-16 11:00:00.0'}, 'Meetup outside m19');
 
 INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE , LOCATION) VALUES
-(1, 'Äta på Nida', 4, {ts '2020-12-20 12:00:00.0'}, 'Möts vid spärrarna');
+(1, 'Eat on Nida', 4, {ts '2020-12-20 12:00:00.0'}, 'Meetup at the Entrance');
 
 INSERT INTO ACTIVITY (CATEGORYID, ACTIVITYNAME, MAXMEMBERS, ACTIVITYDATE , LOCATION) VALUES
-(1, 'Äta ute: Indiskt', 4, {ts '2020-12-25 11:00:00.0'}, 'Möts vid kajen');
+(1, 'Meal at : Indian', 4, {ts '2020-12-15 11:00:00.0'}, 'Meetup at the quay');
 
 
 
