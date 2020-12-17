@@ -117,10 +117,15 @@
             <div class="select-container">
                 <div class="select">
                   <select id="select-box" name="format" onchange="myCategory();">
-                      <option selected disabled>Select category...</option>
-                      <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}">
-                      </option>
+                      <option selected disabled>Select Category..</option>
+                      <option value="allCategories">Select All</option>
+                      <option value="lunch">Lunch</option>
+                      <option value="exercise">Exercise</option>
+                      <option value="fika">Fika</option>
+                      <option value="run">Run</option>
+                      <option value="meet">Meet</option>
                     </select>
+
                 </div>
             </div>
 
@@ -136,7 +141,7 @@
                             <img th:src="${activity.categoryId} + '.png'">
                         </div>
                         <div class="contentt">
-                            <span th:text="${activity.ActivityName}"></span><br>
+                            <span class="title" th:text="${activity.ActivityName}"></span><br>
                             <span th:text="${activity.location}"></span><br>
                             <span th:text="${#temporals.format(activity.ActivityDate, 'yyyy-MM-dd')}"></span><br>
                             <span th:text="${#temporals.format(activity.ActivityDate, 'HH:mm')}"></span><br>

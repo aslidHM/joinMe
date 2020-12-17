@@ -327,6 +327,11 @@ h3{
         height: 100%;
         text-align: center;
         padding-top: 70px;
+        font-size: 14px;
+}
+.card-container .card .contentt .title{
+        font-weight: bold;
+        color: #ff0000;
 }
 .card-container .card .contentt .div-link{
         position: absolute;
@@ -568,21 +573,24 @@ vertical-align:top;
                 overflow: hidden;
                 position: absolute;
                 text-align: left;
-                z-index: 2;
+                z-index: 200;
                 transition: .5s;
         }
         .nav-links ul a{
                 display: block;
                 color: #ffffff;
         }
-        .nav-links .btn-sign-in{
-                float: none;
-                margin-left: 25px;
-                margin-top: 10px;
-                background-color: #ffffff;
-                color: red;
-                outline: none;
-        }
+         .nav-links .btn-sign-in{
+                 margin-right: 78px;
+                 margin-top: 10px;
+                 background-color: #ffffff;
+                 color: #ff0000;
+                 outline: none;
+                 font-size: 16px;
+         }
+         div .radio{
+                 margin-right: 17px;
+         }
         .nav-logo img{
         width: 40px;
         height: 35px;
