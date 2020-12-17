@@ -1,4 +1,5 @@
 
+
 var show = document.getElementById("nav-links");
 function showMenu() {
         show.style.right = "0";
@@ -24,24 +25,28 @@ function showAll() {
   for(var i = 0; i<x.length; i++) {
     if (x[i].style.display === "none") {
         x[i].style.display = "block";
-}}}
+    }
+  }
+}
 
-function addValue() {
-        var v = document.form1.txtValue.value;
-        var len = document.getElementById("select1").length;
-        AddOpt = new Option(v, v);
-        document.form1.lstValue.options[len] = AddOpt;
-        document.form1.addMe.setAttribute('onclick', 'removeValue()');
-        document.form1.addMe.setAttribute('value', 'Remove Me -');
+function addValue(block, addMe) {
+        var v = document.getElementById("hidden-field").value;
+        var len = block.length;
+
+        var vv = block[len-1].text;
+
+        if(v === vv){
+            block[len-1] = null
+            addMe.setAttribute('value', 'Add Me +');
+        }
+        else{
+        var AddOpt = new Option(v, v);
+            block[len] = AddOpt;
+            addMe.setAttribute('value', 'Remove Me -');
+        }
         return true;
 }
-function removeValue() {
-        var len = document.getElementById("select1").length;
-        document.form1.lstValue.options[len - 1] = null
-        document.form1.addMe.setAttribute('onclick', 'addValue()');
-        document.form1.addMe.setAttribute('value', 'Add Me +');
-        return true;
-}
+
 
 function myCategory() {
   var category = document.getElementById("select-box").value;

@@ -23,52 +23,56 @@ public class JoinMeController {
     private JoinMeRepository repository;
 
     @GetMapping("/login")
-    public String login (Model model) {
+    public String login(Model model) {
         return "signIn";
     }
 
     @GetMapping("/")
-    public String initialize () {
+    public String initialize() {
         return "index";
     }
+
     @GetMapping("/contact")
-    public String contact () {
+    public String contact() {
         return "contact";
     }
 
     @GetMapping("/activities")
-    public String getAllActivities (Model model) throws ParseException {
-
-        List<Activity> activities = repository.getActivities();
-        model.addAttribute("activities", activities);
-
+    public String getAllActivities(Model model) throws ParseException {
+        getActivities(model);
         return "activity";
     }
 
     @PostMapping("/activities/{categoryID}")
-    public String getActivitiesByCategory (@PathVariable int categoryID, Model model) {
-        //get activities by category
+    public String getActivitiesByCategory(@PathVariable int categoryID, Model model) {
         model.addAttribute("activities", repository.getActivityByCategory(categoryID));
-        return "activities";
+        return "activity";
     }
 
-    @PostMapping("/activities/")
-    public String getMembersForOneActivity (@PathVariable int memberID, Model model) {
-        //get activities by category
-        // model.addAttribute("activities", repository.getActivitiesByMember(memberID));
-        return "activities";
+    @PostMapping("/activities/{memberID}")
+    public String getActivitiesMember(Model model, HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        repository.getActivityForMember(member.getMemberID());
+        return "activity";
     }
 
     @PostMapping("/addActivity")
-    public String addActivity (@ModelAttribute Activity activity, HttpSession session) {
-         //Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, "1", 1);
+    public String addActivity(Model model, @ModelAttribute Activity newActivity, @ModelAttribute DisplayDateAndTime displayDateAndTime, HttpSession session) {
+        // Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
 
-         Member member = (Member) session.getAttribute("member");
-        repository.addActivity(activity, member.getMemberID());
+        newActivity.updateWithDisplayDateAndTime(displayDateAndTime);
+        Member member = (Member) session.getAttribute("member");
+
+        newActivity.setEmail(member.getEmail());
+        newActivity.setIsOwner(1);
+        repository.addActivity(newActivity, member.getMemberID());
+
+        getActivities(model);
         return "activity";
     }
+
     @GetMapping("/editActivity")
-    public String editActivity (@ModelAttribute Activity activity) {
+    public String editActivity(@ModelAttribute Activity activity) {
        /* Activity a = new Activity(0, "Åsas activity", "asa.lindkvist@hm.com", 8, DateUtil.toModelDate("2020-12-14 13:00"), "Hemma", 1, 1);
         repository.addActivity(a, 2);
         a.setID(5);
@@ -79,21 +83,22 @@ public class JoinMeController {
     }
 
     @PostMapping("/addMemberToActivity")
-    public String addMemberToActivity (@ModelAttribute Activity activity, HttpSession session) {
+    public String addMemberToActivity(@ModelAttribute Activity activity, HttpSession session) {
         Member member = (Member) session.getAttribute("member");
         repository.addMemberToActivity(member.getMemberID(), activity.getID());
         return "activity";
     }
 
     @GetMapping("/deleteActivity")
-    public String deleteActivity (@PathVariable int activityId) {
+    public String deleteActivity(@PathVariable int activityId) {
         repository.deleteActivity(activityId);
         return "activity";
     }
 
     @GetMapping("/deleteMemberFromActivity")
-    public String deleteMemberFromActivity (@PathVariable int activityId, @PathVariable int memberId) {
-        repository.deleteMemberFromActivity(activityId, memberId);
+    public String deleteMemberFromActivity(@PathVariable int activityId, HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        repository.deleteMemberFromActivity(activityId, member.getMemberID());
         return "activity";
     }
 
@@ -101,14 +106,14 @@ public class JoinMeController {
     @PostMapping("/tryLogin")
     String form(@RequestParam String email, String password, Model model, HttpSession session) {
         Member member = repository.CheckMemberLogin(email, password);
-        if(member!=null){
+        if (member != null) {
             session.setAttribute("memberId", member.getMemberID());
             session.setAttribute("fullName", member.getFullName());
             session.setAttribute("email", member.getEmail());
             session.setAttribute("password", member.getPassword());
+            session.setAttribute("member", member);
             return "index";
-        }
-        else{
+        } else {
             model.addAttribute("message", "Wrong email or password, please try again");
             return "signIn";
         }
@@ -122,6 +127,7 @@ public class JoinMeController {
         session.removeAttribute("email");
         session.removeAttribute("password");
         session.removeAttribute("newMember");
+        session.removeAttribute("member");
         return "index";
     }
 
@@ -131,6 +137,21 @@ public class JoinMeController {
         repository.addMember(fullName, email, password);
         return "index";
     }
+private void getActivities(Model model){
+    String displayDate = "";
+    String displayTime = "";
+    List<Activity> activities = repository.getActivities();
+    List<Category> categories = repository.getCategories();
 
+    model.addAttribute("activities", activities);
+    model.addAttribute("categories", categories);
+    model.addAttribute("displayDateAndTime", new DisplayDateAndTime());
+
+    //Activity a = new Activity();
+    //a.setActivityName("new XXXX");
+    model.addAttribute("newActivity", new Activity());
+
+
+}
 
 }
