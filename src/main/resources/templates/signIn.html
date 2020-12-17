@@ -21,7 +21,7 @@
                                 <a href="/activities"><li>ACTIVITIES</li></a>
                                 <a href="/contact"><li>CONTACT</li></a>
                         </ul>
-                        <span th:text="${session.fullName}"></span>&nbsp;&nbsp;<a th:href="${session.fullName != null} ? '/logout' : '/login'" class="btn-sign-in" th:text="${session.fullName != null} ? 'SIGN OUT' : 'SIGN IN'"></a>
+                        &nbsp;&nbsp;<a th:href="${session.fullName != null} ? '/logout' : '/login'" class="btn-sign-in" th:text="${session.fullName != null} ? 'SIGN OUT' : 'SIGN IN'"></a><span class="user-name" th:text="${session.fullName}"></span>
                 </div>
                 <i class="fa fa-bars" onclick="showMenu()"></i>
         </div>
